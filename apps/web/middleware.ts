@@ -20,6 +20,7 @@ import type { NextRequest } from "next/server";
 import { RATE_LIMITING_DISABLED, WEBAPP_URL } from "@formbricks/lib/constants";
 
 export async function middleware(request: NextRequest) {
+  console.log(request.nextUrl.href);
   const token = await getToken({ req: request });
 
   if (isWebAppRoute(request.nextUrl.pathname) && !token) {
@@ -77,7 +78,7 @@ export const config = {
     "/api/v1/js/actions",
     "/api/v1/client/storage",
     "/share/(.*)/:path",
-    "/environments/:path*",
+    //"/environments/:path*",
     "/api/auth/signout",
     "/auth/login",
   ],

@@ -5,13 +5,13 @@ import { unstable_cache } from "next/cache";
 import { z } from "zod";
 
 import { prisma } from "@formbricks/database";
-import { ZOptionalNumber, ZString } from "@formbricks/types/common";
-import { ZId } from "@formbricks/types/environment";
+import { ZString } from "@formbricks/types/common";
+import { TEnvironment, ZId } from "@formbricks/types/environment";
 import { DatabaseError, ValidationError } from "@formbricks/types/errors";
 import type { TProduct, TProductUpdateInput } from "@formbricks/types/product";
 import { ZProduct, ZProductUpdateInput } from "@formbricks/types/product";
 
-import { ITEMS_PER_PAGE, SERVICES_REVALIDATION_INTERVAL, isS3Configured } from "../constants";
+import { SERVICES_REVALIDATION_INTERVAL, isS3Configured } from "../constants";
 import { environmentCache } from "../environment/cache";
 import { createEnvironment } from "../environment/service";
 import { deleteLocalFilesByEnvironmentId, deleteS3FilesByEnvironmentId } from "../storage/service";
@@ -36,72 +36,99 @@ const selectProduct = {
   styling: true,
 };
 
-export const getProducts = async (teamId: string, page?: number): Promise<TProduct[]> => {
-  const products = await unstable_cache(
-    async () => {
-      validateInputs([teamId, ZId], [page, ZOptionalNumber]);
+export const getProducts = async (_teamId: string, _page?: number): Promise<TProduct[]> => {
+  // const products = await unstable_cache(
+  //   async () => {
+  //     validateInputs([teamId, ZId], [page, ZOptionalNumber]);
 
-      try {
-        const products = await prisma.product.findMany({
-          where: {
-            teamId,
-          },
-          select: selectProduct,
-          take: page ? ITEMS_PER_PAGE : undefined,
-          skip: page ? ITEMS_PER_PAGE * (page - 1) : undefined,
-        });
-        return products;
-      } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-          throw new DatabaseError(error.message);
-        }
+  //     try {
+  //       const products = await prisma.product.findMany({
+  //         where: {
+  //           teamId,
+  //         },
+  //         select: selectProduct,
+  //         take: page ? ITEMS_PER_PAGE : undefined,
+  //         skip: page ? ITEMS_PER_PAGE * (page - 1) : undefined,
+  //       });
+  //       return products;
+  //     } catch (error) {
+  //       if (error instanceof Prisma.PrismaClientKnownRequestError) {
+  //         throw new DatabaseError(error.message);
+  //       }
 
-        throw error;
-      }
-    },
-    [`getProducts-${teamId}-${page}`],
-    {
-      tags: [productCache.tag.byTeamId(teamId)],
-      revalidate: SERVICES_REVALIDATION_INTERVAL,
-    }
-  )();
+  //       throw error;
+  //     }
+  //   },
+  //   [`getProducts-${teamId}-${page}`],
+  //   {
+  //     tags: [productCache.tag.byTeamId(teamId)],
+  //     revalidate: SERVICES_REVALIDATION_INTERVAL,
+  //   }
+  // )();
+  const products = [(await getProductByEnvironmentId(""))!];
   return products.map((product) => formatDateFields(product, ZProduct));
 };
 
-export const getProductByEnvironmentId = async (environmentId: string): Promise<TProduct | null> => {
-  const product = await unstable_cache(
-    async () => {
-      validateInputs([environmentId, ZId]);
+export const getProductByEnvironmentId = async (_environmentId: string): Promise<TProduct | null> => {
+  // const product = await unstable_cache(
+  //   async () => {
+  //     validateInputs([environmentId, ZId]);
 
-      let productPrisma;
+  //     let productPrisma;
 
-      try {
-        productPrisma = await prisma.product.findFirst({
-          where: {
-            environments: {
-              some: {
-                id: environmentId,
-              },
-            },
-          },
-          select: selectProduct,
-        });
+  //     try {
+  //       productPrisma = await prisma.product.findFirst({
+  //         where: {
+  //           environments: {
+  //             some: {
+  //               id: environmentId,
+  //             },
+  //           },
+  //         },
+  //         select: selectProduct,
+  //       });
 
-        return productPrisma;
-      } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-          console.error(error);
-          throw new DatabaseError(error.message);
-        }
-        throw error;
-      }
-    },
-    [`getProductByEnvironmentId-${environmentId}`],
-    {
-      tags: [productCache.tag.byEnvironmentId(environmentId)],
-      revalidate: SERVICES_REVALIDATION_INTERVAL,
-    }
-  )();
+  //       return productPrisma;
+  //     } catch (error) {
+  //       if (error instanceof Prisma.PrismaClientKnownRequestError) {
+  //         console.error(error);
+  //         throw new DatabaseError(error.message);
+  //       }
+  //       throw error;
+  //     }
+  //   },
+  //   [`getProductByEnvironmentId-${environmentId}`],
+  //   {
+  //     tags: [productCache.tag.byEnvironmentId(environmentId)],
+  //     revalidate: SERVICES_REVALIDATION_INTERVAL,
+  //   }
+  // )();
+  const environment: TEnvironment = {
+    id: "clu9zkz3l000agecrg5nlvm2a",
+    createdAt: new Date("2024-03-27T15:54:36.849Z"),
+    updatedAt: new Date("2024-03-27T16:05:31.383Z"),
+    type: "production",
+    productId: "clu9zkz310003gecr3u8j5a90",
+    widgetSetupCompleted: true,
+  };
+  const product: TProduct = {
+    id: "clu9zkz310003gecr3u8j5a90",
+    createdAt: new Date("2024-03-27T15:54:36.830Z"),
+    updatedAt: new Date("2024-03-27T15:54:36.830Z"),
+    name: "My Product",
+    teamId: "clu9zkz2r0001gecrd757e94t",
+    brandColor: null,
+    highlightBorderColor: null,
+    styling: { allowStyleOverwrite: true },
+    recontactDays: 7,
+    linkSurveyBranding: true,
+    inAppSurveyBranding: true,
+    placement: "bottomRight",
+    clickOutsideClose: true,
+    darkOverlay: false,
+    environments: [environment],
+    languages: [],
+  };
   return product ? formatDateFields(product, ZProduct) : null;
 };
 

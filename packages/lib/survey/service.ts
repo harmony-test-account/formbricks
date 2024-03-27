@@ -10,8 +10,14 @@ import { ZOptionalNumber } from "@formbricks/types/common";
 import { ZId } from "@formbricks/types/environment";
 import { DatabaseError, InvalidInputError, ResourceNotFoundError } from "@formbricks/types/errors";
 import { TPerson } from "@formbricks/types/people";
-import { TSegment, ZSegment, ZSegmentFilters } from "@formbricks/types/segment";
-import { TSurvey, TSurveyInput, ZSurvey, ZSurveyWithRefinements } from "@formbricks/types/surveys";
+import { TSegment, ZSegmentFilters } from "@formbricks/types/segment";
+import {
+  TSurvey,
+  TSurveyInput,
+  TSurveyQuestionType,
+  ZSurvey,
+  ZSurveyWithRefinements,
+} from "@formbricks/types/surveys";
 
 import { getActionsByPersonId } from "../action/service";
 import { getActionClasses } from "../actionClass/service";
@@ -172,56 +178,111 @@ const processTriggerUpdates = (
   return triggersUpdate;
 };
 
-export const getSurvey = async (surveyId: string): Promise<TSurvey | null> => {
-  const survey = await unstable_cache(
-    async () => {
-      validateInputs([surveyId, ZId]);
+export const getSurvey = async (_surveyId: string): Promise<TSurvey | null> => {
+  // const survey = await unstable_cache(
+  //   async () => {
+  //     validateInputs([surveyId, ZId]);
 
-      let surveyPrisma;
-      try {
-        surveyPrisma = await prisma.survey.findUnique({
-          where: {
-            id: surveyId,
-          },
-          select: selectSurvey,
-        });
-      } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-          console.error(error);
-          throw new DatabaseError(error.message);
-        }
-        throw error;
-      }
+  //     let surveyPrisma;
+  //     try {
+  //       const _surveyPrisma = await prisma.survey.findUnique({
+  //         where: {
+  //           id: surveyId,
+  //         },
+  //         select: selectSurvey,
+  //       });
+  //       surveyPrisma = _surveyPrisma;
+  //     } catch (error) {
+  //       if (error instanceof Prisma.PrismaClientKnownRequestError) {
+  //         console.error(error);
+  //         throw new DatabaseError(error.message);
+  //       }
+  //       throw error;
+  //     }
 
-      if (!surveyPrisma) {
-        return null;
-      }
+  //     if (!surveyPrisma) {
+  //       return null;
+  //     }
 
-      let surveySegment: TSegment | null = null;
-      if (surveyPrisma.segment) {
-        surveySegment = formatDateFields(
-          {
-            ...surveyPrisma.segment,
-            surveys: surveyPrisma.segment.surveys.map((survey) => survey.id),
-          },
-          ZSegment
-        );
-      }
+  //     let surveySegment: TSegment | null = null;
+  //     if (surveyPrisma.segment) {
+  //       surveySegment = formatDateFields(
+  //         {
+  //           ...surveyPrisma.segment,
+  //           surveys: surveyPrisma.segment.surveys.map((survey) => survey.id),
+  //         },
+  //         ZSegment
+  //       );
+  //     }
 
-      const transformedSurvey: TSurvey = {
-        ...surveyPrisma,
-        triggers: surveyPrisma.triggers.map((trigger) => trigger.actionClass.name),
-        segment: surveySegment,
-      };
+  //     const transformedSurvey: TSurvey = {
+  //       ...surveyPrisma,
+  //       triggers: surveyPrisma.triggers.map((trigger) => trigger.actionClass.name),
+  //       segment: surveySegment,
+  //     };
 
-      return transformedSurvey;
+  //     return transformedSurvey;
+  //   },
+  //   [`getSurvey-${surveyId}`],
+  //   {
+  //     tags: [surveyCache.tag.byId(surveyId)],
+  //     revalidate: SERVICES_REVALIDATION_INTERVAL,
+  //   }
+  // )();
+  const survey: TSurvey = {
+    id: "clu9zz04g000ggecr44x9sdwj",
+    name: "Example Survey",
+    type: "web",
+    redirectUrl: null,
+    createdAt: new Date("2024-03-27T16:05:31.361Z"),
+    updatedAt: new Date("2024-03-27T16:05:31.361Z"),
+    environmentId: "clu9zkz3l000agecrg5nlvm2a",
+    status: "inProgress",
+    welcomeCard: {
+      html: { default: "Thanks for providing your feedback - let's go!" },
+      enabled: false,
+      headline: { default: "Welcome!" },
+      timeToFinish: false,
+      showResponseCount: false,
     },
-    [`getSurvey-${surveyId}`],
-    {
-      tags: [surveyCache.tag.byId(surveyId)],
-      revalidate: SERVICES_REVALIDATION_INTERVAL,
-    }
-  )();
+    questions: [
+      {
+        id: "vd1yyur3j5dvdaf4b5s61wje",
+        html: {
+          default: "You're all set up. Create your own survey to gather exactly the feedback you need :)",
+        },
+        type: TSurveyQuestionType.CTA,
+        headline: { default: "You did it 🎉" },
+        imageUrl: "http://localhost:3000/onboarding/meme.png",
+        required: true,
+        subheader: { default: "This is an example survey." },
+        buttonLabel: { default: "Create survey" },
+        buttonExternal: true,
+      },
+    ],
+    thankYouCard: {
+      enabled: true,
+      headline: { default: "Thank you!" },
+      subheader: { default: "We appreciate your feedback." },
+    },
+    hiddenFields: { enabled: true, fieldIds: [] },
+    displayOption: "respondMultiple",
+    recontactDays: 0,
+    delay: 0,
+    autoComplete: 2,
+    singleUse: { enabled: false, isEncrypted: true },
+    triggers: ["clu9zz04h000igecrtyc3p2ij"],
+    createdBy: null,
+    autoClose: null,
+    closeOnDate: null,
+    productOverwrites: null,
+    styling: null,
+    segment: null,
+    resultShareKey: null,
+    displayPercentage: null,
+    languages: [],
+    inlineTriggers: null,
+  };
 
   // since the unstable_cache function does not support deserialization of dates, we need to manually deserialize them
   // https://github.com/vercel/next.js/issues/51613

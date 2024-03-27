@@ -345,34 +345,34 @@ export const deleteDisplayByResponseId = async (
 };
 
 export const getDisplayCountBySurveyId = async (
-  surveyId: string,
-  filters?: TDisplayFilters
-): Promise<number> =>
-  unstable_cache(
-    async () => {
-      validateInputs([surveyId, ZId]);
+  _surveyId: string,
+  _filters?: TDisplayFilters
+): Promise<number> => 1;
+// unstable_cache(
+//   async () => {
+//     validateInputs([surveyId, ZId]);
 
-      try {
-        const displayCount = await prisma.display.count({
-          where: {
-            surveyId: surveyId,
-            ...(filters &&
-              filters.createdAt && {
-                createdAt: {
-                  gte: filters.createdAt.min,
-                  lte: filters.createdAt.max,
-                },
-              }),
-          },
-        });
-        return displayCount;
-      } catch (error) {
-        throw error;
-      }
-    },
-    [`getDisplayCountBySurveyId-${surveyId}`],
-    {
-      tags: [displayCache.tag.bySurveyId(surveyId)],
-      revalidate: SERVICES_REVALIDATION_INTERVAL,
-    }
-  )();
+//     try {
+//       const displayCount = await prisma.display.count({
+//         where: {
+//           surveyId: surveyId,
+//           ...(filters &&
+//             filters.createdAt && {
+//               createdAt: {
+//                 gte: filters.createdAt.min,
+//                 lte: filters.createdAt.max,
+//               },
+//             }),
+//         },
+//       });
+//       return displayCount;
+//     } catch (error) {
+//       throw error;
+//     }
+//   },
+//   [`getDisplayCountBySurveyId-${surveyId}`],
+//   {
+//     tags: [displayCache.tag.bySurveyId(surveyId)],
+//     revalidate: SERVICES_REVALIDATION_INTERVAL,
+//   }
+// )();

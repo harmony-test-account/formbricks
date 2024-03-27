@@ -1,8 +1,6 @@
 import SummaryPage from "@/app/(app)/environments/[environmentId]/surveys/[surveyId]/(analysis)/summary/components/SummaryPage";
-import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
 
-import { authOptions } from "@formbricks/lib/authOptions";
 import { WEBAPP_URL } from "@formbricks/lib/constants";
 import { getEnvironment } from "@formbricks/lib/environment/service";
 import { getMembershipByUserIdTeamId } from "@formbricks/lib/membership/service";
@@ -14,10 +12,10 @@ import { getTeamByEnvironmentId } from "@formbricks/lib/team/service";
 import { getUser } from "@formbricks/lib/user/service";
 
 export default async function Page({ params }) {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    throw new Error("Unauthorized");
-  }
+  // const session = await getServerSession(authOptions);
+  // if (!session) {
+  //   throw new Error("Unauthorized");
+  // }
 
   const surveyId = params.surveyId;
 
@@ -41,7 +39,7 @@ export default async function Page({ params }) {
     throw new Error("Product not found");
   }
 
-  const user = await getUser(session.user.id);
+  const user = await getUser("asdf");
   if (!user) {
     throw new Error("User not found");
   }
@@ -51,7 +49,7 @@ export default async function Page({ params }) {
   if (!team) {
     throw new Error("Team not found");
   }
-  const currentUserMembership = await getMembershipByUserIdTeamId(session?.user.id, team.id);
+  const currentUserMembership = await getMembershipByUserIdTeamId("asdf", team.id);
 
   const tags = await getTagsByEnvironmentId(params.environmentId);
   const attributes = await getResponsePersonAttributes(params.surveyId);

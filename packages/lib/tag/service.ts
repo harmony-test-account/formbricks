@@ -1,29 +1,30 @@
 import "server-only";
 
 import { prisma } from "@formbricks/database";
-import { ZOptionalNumber, ZString } from "@formbricks/types/common";
+import { ZString } from "@formbricks/types/common";
 import { ZId } from "@formbricks/types/environment";
 import { TTag } from "@formbricks/types/tags";
 
-import { ITEMS_PER_PAGE } from "../constants";
 import { validateInputs } from "../utils/validate";
 
-export const getTagsByEnvironmentId = async (environmentId: string, page?: number): Promise<TTag[]> => {
-  validateInputs([environmentId, ZId], [page, ZOptionalNumber]);
+export const getTagsByEnvironmentId = async (_environmentId: string, _page?: number): Promise<TTag[]> => {
+  // validateInputs([environmentId, ZId], [page, ZOptionalNumber]);
 
-  try {
-    const tags = await prisma.tag.findMany({
-      where: {
-        environmentId,
-      },
-      take: page ? ITEMS_PER_PAGE : undefined,
-      skip: page ? ITEMS_PER_PAGE * (page - 1) : undefined,
-    });
+  // try {
+  //   const tags = await prisma.tag.findMany({
+  //     where: {
+  //       environmentId,
+  //     },
+  //     take: page ? ITEMS_PER_PAGE : undefined,
+  //     skip: page ? ITEMS_PER_PAGE * (page - 1) : undefined,
+  //   });
 
-    return tags;
-  } catch (error) {
-    throw error;
-  }
+  //   return tags;
+  // } catch (error) {
+  //   throw error;
+  // }
+
+  return [];
 };
 
 export const getTag = async (tagId: string): Promise<TTag | null> => {

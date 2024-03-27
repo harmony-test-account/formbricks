@@ -61,32 +61,38 @@ export const getMembersByTeamId = async (teamId: string, page?: number): Promise
   )();
 
 export const getMembershipByUserIdTeamId = async (
-  userId: string,
-  teamId: string
+  _userId: string,
+  _teamId: string
 ): Promise<TMembership | null> =>
-  unstable_cache(
-    async () => {
-      validateInputs([userId, ZString], [teamId, ZString]);
+  // unstable_cache(
+  //   async () => {
+  //     validateInputs([userId, ZString], [teamId, ZString]);
 
-      const membership = await prisma.membership.findUnique({
-        where: {
-          userId_teamId: {
-            userId,
-            teamId,
-          },
-        },
-      });
+  //     const membership = await prisma.membership.findUnique({
+  //       where: {
+  //         userId_teamId: {
+  //           userId,
+  //           teamId,
+  //         },
+  //       },
+  //     });
 
-      if (!membership) return null;
+  //     if (!membership) return null;
 
-      return membership;
-    },
-    [`getMembershipByUserIdTeamId-${userId}-${teamId}`],
-    {
-      tags: [membershipCache.tag.byUserId(userId), membershipCache.tag.byTeamId(teamId)],
-      revalidate: SERVICES_REVALIDATION_INTERVAL,
-    }
-  )();
+  //     return membership;
+  //   },
+  //   [`getMembershipByUserIdTeamId-${userId}-${teamId}`],
+  //   {
+  //     tags: [membershipCache.tag.byUserId(userId), membershipCache.tag.byTeamId(teamId)],
+  //     revalidate: SERVICES_REVALIDATION_INTERVAL,
+  //   }
+  // )();
+  ({
+    userId: "clu9zkz2f0000gecr9o5npwh2",
+    accepted: true,
+    role: "owner",
+    teamId: "clu9zkz2r0001gecrd757e94t",
+  });
 
 export const getMembershipsByUserId = async (userId: string, page?: number): Promise<TMembership[]> =>
   unstable_cache(

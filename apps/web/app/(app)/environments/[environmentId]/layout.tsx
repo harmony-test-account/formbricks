@@ -1,11 +1,10 @@
 import EnvironmentsNavbar from "@/app/(app)/environments/[environmentId]/components/EnvironmentsNavbar";
 import { ResponseFilterProvider } from "@/app/(app)/environments/[environmentId]/components/ResponseFilterContext";
-import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
-import { authOptions } from "@formbricks/lib/authOptions";
 import { hasUserEnvironmentAccess } from "@formbricks/lib/environment/auth";
 import { getTeamByEnvironmentId } from "@formbricks/lib/team/service";
+import { getUser } from "@formbricks/lib/user/service";
 import { AuthorizationError } from "@formbricks/types/errors";
 import ToasterClient from "@formbricks/ui/ToasterClient";
 
@@ -13,8 +12,10 @@ import FormbricksClient from "../../components/FormbricksClient";
 import PosthogIdentify from "./components/PosthogIdentify";
 
 export default async function EnvironmentLayout({ children, params }) {
-  const session = await getServerSession(authOptions);
+  const user = await getUser("");
+  const session = { user: user!, expires: "" }; //await getServerSession(authOptions);
   if (!session || !session.user) {
+    console.log(session);
     return redirect(`/auth/login`);
   }
   const hasAccess = await hasUserEnvironmentAccess(session.user.id, params.environmentId);

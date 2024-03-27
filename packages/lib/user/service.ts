@@ -35,37 +35,55 @@ const responseSelection = {
 };
 
 // function to retrive basic information about a user's user
-export const getUser = async (id: string): Promise<TUser | null> => {
-  const user = await unstable_cache(
-    async () => {
-      validateInputs([id, ZId]);
+export const getUser = async (_id: string): Promise<TUser | null> => {
+  // const user = await unstable_cache(
+  //   async () => {
+  //     validateInputs([id, ZId]);
 
-      try {
-        const user = await prisma.user.findUnique({
-          where: {
-            id,
-          },
-          select: responseSelection,
-        });
+  //     try {
+  //       const user = await prisma.user.findUnique({
+  //         where: {
+  //           id,
+  //         },
+  //         select: responseSelection,
+  //       });
 
-        if (!user) {
-          return null;
-        }
-        return user;
-      } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-          throw new DatabaseError(error.message);
-        }
+  //       if (!user) {
+  //         return null;
+  //       }
+  //       return user;
+  //     } catch (error) {
+  //       if (error instanceof Prisma.PrismaClientKnownRequestError) {
+  //         throw new DatabaseError(error.message);
+  //       }
 
-        throw error;
-      }
+  //       throw error;
+  //     }
+  //   },
+  //   [`getUser-${id}`],
+  //   {
+  //     tags: [userCache.tag.byId(id)],
+  //     revalidate: SERVICES_REVALIDATION_INTERVAL,
+  //   }
+  // )();
+  const user: TUser = {
+    id: "clu9zkz2f0000gecr9o5npwh2",
+    createdAt: new Date("2024-03-27T15:54:36.807Z"),
+    updatedAt: new Date("2024-03-27T16:05:58.609Z"),
+    name: "Braydon Jones",
+    email: "bradofrado@gmail.com",
+    emailVerified: null,
+    imageUrl: null,
+    twoFactorEnabled: false,
+    onboardingCompleted: true,
+    identityProvider: "email",
+    role: "engineer",
+    objective: "increase_conversion",
+    notificationSettings: {
+      alert: { clu9zz04g000ggecr44x9sdwj: true },
+      weeklySummary: { clu9zkz310003gecr3u8j5a90: true },
     },
-    [`getUser-${id}`],
-    {
-      tags: [userCache.tag.byId(id)],
-      revalidate: SERVICES_REVALIDATION_INTERVAL,
-    }
-  )();
+  };
 
   return user
     ? {

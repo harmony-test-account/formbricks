@@ -4,7 +4,7 @@ import { Prisma } from "@prisma/client";
 import { unstable_cache } from "next/cache";
 
 import { prisma } from "@formbricks/database";
-import { ZOptionalNumber, ZString } from "@formbricks/types/common";
+import { ZString } from "@formbricks/types/common";
 import { ZId } from "@formbricks/types/environment";
 import { DatabaseError, ResourceNotFoundError } from "@formbricks/types/errors";
 import {
@@ -17,7 +17,7 @@ import {
 } from "@formbricks/types/teams";
 import { TUserNotificationSettings } from "@formbricks/types/user";
 
-import { ITEMS_PER_PAGE, SERVICES_REVALIDATION_INTERVAL } from "../constants";
+import { SERVICES_REVALIDATION_INTERVAL } from "../constants";
 import { environmentCache } from "../environment/cache";
 import { getProducts } from "../product/service";
 import { getUsersWithTeam, updateUser } from "../user/service";
@@ -37,82 +37,98 @@ export const getTeamsTag = (teamId: string) => `teams-${teamId}`;
 export const getTeamsByUserIdCacheTag = (userId: string) => `users-${userId}-teams`;
 export const getTeamByEnvironmentIdCacheTag = (environmentId: string) => `environments-${environmentId}-team`;
 
-export const getTeamsByUserId = async (userId: string, page?: number): Promise<TTeam[]> => {
-  const teams = await unstable_cache(
-    async () => {
-      validateInputs([userId, ZString], [page, ZOptionalNumber]);
+export const getTeamsByUserId = async (_userId: string, _page?: number): Promise<TTeam[]> => {
+  // const teams = await unstable_cache(
+  //   async () => {
+  //     validateInputs([userId, ZString], [page, ZOptionalNumber]);
 
-      try {
-        const teams = await prisma.team.findMany({
-          where: {
-            memberships: {
-              some: {
-                userId,
-              },
-            },
-          },
-          select,
-          take: page ? ITEMS_PER_PAGE : undefined,
-          skip: page ? ITEMS_PER_PAGE * (page - 1) : undefined,
-        });
-        if (!teams) {
-          throw new ResourceNotFoundError("Teams by UserId", userId);
-        }
-        return teams;
-      } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-          throw new DatabaseError(error.message);
-        }
+  //     try {
+  //       const teams = await prisma.team.findMany({
+  //         where: {
+  //           memberships: {
+  //             some: {
+  //               userId,
+  //             },
+  //           },
+  //         },
+  //         select,
+  //         take: page ? ITEMS_PER_PAGE : undefined,
+  //         skip: page ? ITEMS_PER_PAGE * (page - 1) : undefined,
+  //       });
+  //       if (!teams) {
+  //         throw new ResourceNotFoundError("Teams by UserId", userId);
+  //       }
+  //       return teams;
+  //     } catch (error) {
+  //       if (error instanceof Prisma.PrismaClientKnownRequestError) {
+  //         throw new DatabaseError(error.message);
+  //       }
 
-        throw error;
-      }
-    },
-    [`getTeamsByUserId-${userId}-${page}`],
-    {
-      tags: [teamCache.tag.byUserId(userId)],
-      revalidate: SERVICES_REVALIDATION_INTERVAL,
-    }
-  )();
+  //       throw error;
+  //     }
+  //   },
+  //   [`getTeamsByUserId-${userId}-${page}`],
+  //   {
+  //     tags: [teamCache.tag.byUserId(userId)],
+  //     revalidate: SERVICES_REVALIDATION_INTERVAL,
+  //   }
+  // )();
+  const teams: TTeam[] = [(await getTeamByEnvironmentId("asdf"))!];
   return teams.map((team) => formatDateFields(team, ZTeam));
 };
 
-export const getTeamByEnvironmentId = async (environmentId: string): Promise<TTeam | null> => {
-  const team = await unstable_cache(
-    async () => {
-      validateInputs([environmentId, ZId]);
+export const getTeamByEnvironmentId = async (_environmentId: string): Promise<TTeam | null> => {
+  // const team = await unstable_cache(
+  //   async () => {
+  //     validateInputs([environmentId, ZId]);
 
-      try {
-        const team = await prisma.team.findFirst({
-          where: {
-            products: {
-              some: {
-                environments: {
-                  some: {
-                    id: environmentId,
-                  },
-                },
-              },
-            },
-          },
-          select: { ...select, memberships: true }, // include memberships
-        });
+  //     try {
+  //       const team = await prisma.team.findFirst({
+  //         where: {
+  //           products: {
+  //             some: {
+  //               environments: {
+  //                 some: {
+  //                   id: environmentId,
+  //                 },
+  //               },
+  //             },
+  //           },
+  //         },
+  //         select: { ...select, memberships: true }, // include memberships
+  //       });
 
-        return team;
-      } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-          console.error(error);
-          throw new DatabaseError(error.message);
-        }
+  //       return team;
+  //     } catch (error) {
+  //       if (error instanceof Prisma.PrismaClientKnownRequestError) {
+  //         console.error(error);
+  //         throw new DatabaseError(error.message);
+  //       }
 
-        throw error;
-      }
+  //       throw error;
+  //     }
+  //   },
+  //   [`getTeamByEnvironmentId-${environmentId}`],
+  //   {
+  //     tags: [teamCache.tag.byEnvironmentId(environmentId)],
+  //     revalidate: SERVICES_REVALIDATION_INTERVAL,
+  //   }
+  // )();
+  const team: TTeam = {
+    id: "clu9zkz2r0001gecrd757e94t",
+    createdAt: new Date("2024-03-27T15:54:36.820Z"),
+    updatedAt: new Date("2024-03-27T15:54:36.820Z"),
+    name: "Braydon Jones's Team",
+    billing: {
+      features: {
+        multiLanguage: { status: "inactive", unlimited: false },
+        linkSurvey: { status: "inactive", unlimited: false },
+        inAppSurvey: { status: "inactive", unlimited: false },
+        userTargeting: { status: "inactive", unlimited: false },
+      },
+      stripeCustomerId: null,
     },
-    [`getTeamByEnvironmentId-${environmentId}`],
-    {
-      tags: [teamCache.tag.byEnvironmentId(environmentId)],
-      revalidate: SERVICES_REVALIDATION_INTERVAL,
-    }
-  )();
+  };
   return team ? formatDateFields(team, ZTeam) : null;
 };
 
