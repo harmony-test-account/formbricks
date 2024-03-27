@@ -2,6 +2,7 @@ import { createId } from "@paralleldrive/cuid2";
 import { withSentryConfig } from "@sentry/nextjs";
 import createJiti from "jiti";
 import { fileURLToPath } from "node:url";
+import path from 'path';
 
 const jiti = createJiti(fileURLToPath(import.meta.url));
 
@@ -18,6 +19,9 @@ const nextConfig = {
   assetPrefix: process.env.ASSET_PREFIX_URL || undefined,
   output: "standalone",
   experimental: {
+    swcPlugins: [
+			['harmony-ai-plugin', {rootDir: path.join(new URL('.', import.meta.url).pathname, '../..')}]
+		],
     serverComponentsExternalPackages: ["@aws-sdk"],
     instrumentationHook: true,
     outputFileTracingIncludes: {
