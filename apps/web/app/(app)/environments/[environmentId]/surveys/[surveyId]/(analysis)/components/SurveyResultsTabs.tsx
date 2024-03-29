@@ -33,9 +33,9 @@ export default function SurveyResultsTabs({
   ];
 
   return (
-    <div className="mb-7 flex h-14 border-b">
+    <div className="flex h-14 border-b mt-[17.1016px] mb-0 mx-0">
       <Link
-        key={tabs[0].id}
+className="text-[#E76E6EFF]"         key={tabs[0].id}
         onClick={() => {
           revalidateSurveyIdPath(environmentId, surveyId);
         }}

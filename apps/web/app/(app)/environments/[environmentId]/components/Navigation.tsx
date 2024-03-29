@@ -235,8 +235,8 @@ export default function Navigation({
           )}
 
           <div className="w-full px-4 sm:px-6">
-            <div className="flex h-14 justify-between">
-              <div className="flex space-x-4 py-2">
+            <div className="flex justify-between gap-0 h-[55.9922px]">
+              <div className="flex space-x-4 py-2 mt-[73px]">
                 <Image src={FaveIcon} alt="faveicon" />
 
                 {navigation.map((item) => {
@@ -265,7 +265,7 @@ export default function Navigation({
               {/* Mobile Menu */}
               <div className="flex items-center lg:hidden">
                 <Popover open={mobileNavMenuOpen} onOpenChange={setMobileNavMenuOpen}>
-                  <PopoverTrigger onClick={() => setMobileNavMenuOpen(!mobileNavMenuOpen)}>
+                  <PopoverTrigger className="w-0 h-0" onClick={() => setMobileNavMenuOpen(!mobileNavMenuOpen)}>
                     <span>
                       <MenuIcon className="h-6 w-6 rounded-md bg-slate-200 p-1 text-slate-600" />
                     </span>
@@ -296,7 +296,7 @@ export default function Navigation({
               {/* User Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild id="userDropdownTrigger">
-                  <div tabIndex={0} className="flex cursor-pointer flex-row items-center space-x-5">
+                  <div tabIndex={0} className="flex cursor-pointer flex-row items-center space-x-5 ml-[1718.3px] mt-[73px]">
                     <svg
                       viewBox="0 0 80 80"
                       fill="none"
