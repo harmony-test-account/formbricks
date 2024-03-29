@@ -51,7 +51,7 @@ export default function SurveyResultsTabs({
         {tabs[0].label}
       </Link>
       <Link
-        key={tabs[1].id}
+/** text-slate-500 */         key={tabs[1].id}
         onClick={() => {
           revalidateSurveyIdPath(environmentId, surveyId);
         }}

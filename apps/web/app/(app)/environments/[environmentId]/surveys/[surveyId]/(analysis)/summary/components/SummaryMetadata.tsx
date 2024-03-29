@@ -19,14 +19,14 @@ const StatCard: React.FunctionComponent<{
   className?: string;
 }> = ({ label, percentage, value, className }) => (
   <div
-    className={cn(
+/** bg-[#F2CACAFF] */     className={cn(
       "flex cursor-default flex-col items-start justify-between space-y-2 rounded-lg border border-slate-200 bg-white p-4 text-left shadow-sm",
       className
     )}>
     <p className="flex text-sm text-slate-600">
       {label}
       {percentage && percentage !== "NaN%" && (
-        <span className="ml-1 rounded-xl bg-slate-100 px-2 py-1 text-xs">{percentage}</span>
+        <span className="ml-1 rounded-xl px-2 py-1 text-xs bg-[#D7E6EFFF]">{percentage}</span>
       )}
     </p>
     <p className="px-0.5 text-2xl font-bold text-slate-800">{value}</p>
@@ -38,7 +38,7 @@ export default function SummaryMetadata({ surveySummary }: SummaryMetadataProps)
     surveySummary;
 
   return (
-    <div className="flex flex-col-reverse gap-y-2 py-4 lg:flex-row lg:gap-x-2">
+    <div className="flex flex-col-reverse py-4 lg:flex-row lg:gap-4 gap-y-4">
       <StatCard
         label="Displays"
         percentage="100%"
@@ -52,7 +52,7 @@ export default function SummaryMetadata({ surveySummary }: SummaryMetadataProps)
         tooltipText="Number of times the survey has been started."
       />
       <StatCard
-        label="Responses"
+className="text-[21px]"         label="Responses"
         percentage={`${Math.round(completedPercentage)}%`}
         value={completedResponses === 0 ? <span>-</span> : completedResponses}
         tooltipText="Number of times the survey has been completed."
