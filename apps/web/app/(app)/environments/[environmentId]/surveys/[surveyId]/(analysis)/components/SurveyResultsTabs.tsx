@@ -35,7 +35,7 @@ export default function SurveyResultsTabs({
   return (
     <div className="mb-7 flex h-14 border-b">
       <Link
-        key={tabs[0].id}
+className="text-[#658BECFF]"         key={tabs[0].id}
         onClick={() => {
           revalidateSurveyIdPath(environmentId, surveyId);
         }}
@@ -51,7 +51,7 @@ export default function SurveyResultsTabs({
         {tabs[0].label}
       </Link>
       <Link
-        key={tabs[1].id}
+className="text-sm"         key={tabs[1].id}
         onClick={() => {
           revalidateSurveyIdPath(environmentId, surveyId);
         }}

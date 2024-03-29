@@ -204,7 +204,7 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
 
   return (
     <>
-      <div className="relative mb-6 flex gap-x-1.5 py-5">
+      <div className="relative mb-6 flex py-5 gap-[78px]">
         <ResponseFilter />
         <DropdownMenu
           onOpenChange={(value) => {
@@ -212,7 +212,7 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
             setIsFilterDropDownOpen(value);
           }}>
           <DropdownMenuTrigger className="flex h-auto items-center justify-between rounded-md border border-slate-200 bg-white p-3 hover:border-slate-300 sm:px-6 sm:py-3">
-            <span className="text-sm text-slate-700">
+            <span className="text-slate-700 text-sm">
               {filterRange === FilterDropDownLabels.CUSTOM_RANGE
                 ? `${dateRange?.from ? format(dateRange?.from, "dd LLL") : "Select first date"} - ${
                     dateRange?.to ? format(dateRange.to, "dd LLL") : "Select last date"
