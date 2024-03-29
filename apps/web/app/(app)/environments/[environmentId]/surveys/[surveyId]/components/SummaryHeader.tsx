@@ -36,7 +36,7 @@ const SummaryHeader = ({
   const [showShareSurveyModal, setShowShareSurveyModal] = useState(false);
 
   return (
-    <div className="mb-6 mt-6 flex items-center justify-between">
+    <div className="mb-6 mt-6 flex items-center justify-between gap-[681px]">
       <div>
         <div className="flex gap-4">
           <p className="text-3xl font-bold text-slate-800">{survey.name}</p>
@@ -56,12 +56,12 @@ const SummaryHeader = ({
       {!isViewer && (
         <Button
           variant="darkCTA"
-          className="h-full w-full px-3 lg:px-6"
+          className="px-3 lg:px-6 justify-end gap-1 items-start h-auto w-auto pl-[122px] pr-6 pt-3"
           href="#"
           /*href={`/environments/${environment.id}/surveys/${surveyId}/edit`}*/
         >
           Edit
-          <SquarePenIcon className="ml-1 h-4" />
+          <SquarePenIcon className="h-4 w-6 ml-0 mt-0.5" />
         </Button>
       )}
       <SuccessMessage environment={environment} survey={survey} webAppUrl={webAppUrl} user={user} />
