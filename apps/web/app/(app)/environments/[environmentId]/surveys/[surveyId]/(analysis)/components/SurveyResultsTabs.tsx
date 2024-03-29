@@ -21,21 +21,21 @@ export default function SurveyResultsTabs({
     {
       id: "summary",
       label: "Summary",
-      icon: <PresentationIcon className="h-5 w-5" />,
+      icon: <PresentationIcon className="w-5 h-full" />,
       href: `/environments/${environmentId}/surveys/${surveyId}/summary?referer=true`,
     },
     {
       id: "responses",
       label: `Responses ${responseCount !== null ? `(${responseCount})` : ""}`,
-      icon: <InboxIcon className="h-5 w-5" />,
+      icon: <InboxIcon className="w-5 h-full" />,
       href: `/environments/${environmentId}/surveys/${surveyId}/responses?referer=true`,
     },
   ];
 
   return (
-    <div className="mb-7 flex h-14 border-b">
+    <div className="mb-7 flex h-14 border-b gap-0">
       <Link
-        key={tabs[0].id}
+className="gap-[8.01041px] items-end mb-[0.0104179px] pb-[16.6667px] px-[11.9896px]"         key={tabs[0].id}
         onClick={() => {
           revalidateSurveyIdPath(environmentId, surveyId);
         }}
@@ -47,11 +47,11 @@ export default function SurveyResultsTabs({
           "flex items-center px-3 text-sm font-medium"
         )}
         aria-current={tabs[0].id === activeId ? "page" : undefined}>
-        {tabs[0].icon && <div className="mr-2 h-5 w-5">{tabs[0].icon}</div>}
+        {tabs[0].icon && <div className="h-5 w-5 mr-0">{tabs[0].icon}</div>}
         {tabs[0].label}
       </Link>
       <Link
-        key={tabs[1].id}
+className="gap-[9.79166px] items-start justify-end pl-[11.9896px] pr-[10.1875px] pt-[17.6563px] pb-0"         key={tabs[1].id}
         onClick={() => {
           revalidateSurveyIdPath(environmentId, surveyId);
         }}
@@ -63,7 +63,7 @@ export default function SurveyResultsTabs({
           "flex items-center px-3 text-sm font-medium"
         )}
         aria-current={tabs[1].id === activeId ? "page" : undefined}>
-        {tabs[1].icon && <div className="mr-2 h-5 w-5">{tabs[1].icon}</div>}
+        {tabs[1].icon && <div className="h-5 w-5 mr-0">{tabs[1].icon}</div>}
         {tabs[1].label}
       </Link>
     </div>

@@ -6,5 +6,5 @@ interface ContentWrapperProps {
 }
 
 export default function ContentWrapper({ children, className }: ContentWrapperProps) {
-  return <div className={cn("mx-auto max-w-7xl p-6", className)}>{children}</div>;
+  return <div /** mx-0 pl-0 pr-[24.0417px] pt-12 */ className={cn("mx-auto max-w-7xl p-6", className)}>{children}</div>;
 }
