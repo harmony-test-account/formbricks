@@ -190,8 +190,8 @@ export default function SingleResponseCard({
   const hasFieldIds = !!fieldIds.length;
 
   return (
-    <div className="relative z-10 my-6 w-full rounded-lg border border-slate-200 bg-white px-6 shadow-sm">
-      <div className="mt-6 flex items-center justify-between">
+    <div className="relative z-10 my-6 w-full rounded-lg border border-slate-200 bg-white px-6 shadow-sm mt-[52px] mb-0 pl-0 pr-3 pt-2 pb-0">
+      <div className="flex items-center justify-between ml-[11px] mr-[25px] mt-0">
         <div className="flex items-center justify-center space-x-4">
           {pageType === "response" && (
             <div>
@@ -355,9 +355,9 @@ export default function SingleResponseCard({
         </div>
       )}
       {response.finished && (
-        <div className="mt-4 flex p-6">
-          <CheckCircle2Icon className="h-6 w-6 text-slate-400" />
-          <p className="mx-2 flex-1 rounded-lg bg-slate-100 px-2 text-slate-700">
+        <div className="flex p-6 gap-2.5 items-start ml-12 mr-3 mt-6 pl-0 pr-[30px] py-0">
+          <CheckCircle2Icon className="w-6 text-slate-400 h-6" />
+          <p className="flex-1 rounded-lg bg-slate-100 px-2 text-slate-700 mt-6 mx-0">
             <span>Completed</span>
           </p>
         </div>

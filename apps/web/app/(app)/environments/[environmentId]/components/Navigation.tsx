@@ -234,10 +234,10 @@ export default function Navigation({
             </div>
           )}
 
-          <div className="w-full px-4 sm:px-6">
-            <div className="flex h-14 justify-between">
-              <div className="flex space-x-4 py-2">
-                <Image src={FaveIcon} alt="faveicon" />
+          <div className="w-full px-4 sm:px-6 pl-[9px] pr-[39px]">
+            <div className="flex h-14 gap-[1365px] justify-end pr-[59px]">
+              <div className="flex space-x-4 py-2 gap-[18px] justify-end pl-4 pr-2 pt-[7px] pb-2">
+                <Image className="w-[30px] h-10" src={FaveIcon} alt="faveicon" />
 
                 {navigation.map((item) => {
                   const IconComponent: React.ElementType = item.icon;

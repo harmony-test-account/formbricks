@@ -157,9 +157,9 @@ const ResponseFilter = () => {
 
   return (
     <Popover open={isOpen} onOpenChange={handleOpenChange}>
-      <PopoverTrigger className="flex items-center justify-between rounded border border-slate-200 bg-white p-3 text-sm text-slate-600 hover:border-slate-300 sm:px-6 sm:py-3">
+      <PopoverTrigger className="flex justify-between rounded border border-slate-200 bg-white p-3 text-sm text-slate-600 hover:border-slate-300 sm:px-6 sm:py-3 gap-3 items-end mb-0 pl-[7px] pr-[108px] py-0">
         <div>Filter {filterValue.filter.length > 0 && `(${filterValue.filter.length})`}</div>
-        <div className="ml-3">
+        <div className="ml-0 mb-3.5">
           {isOpen ? (
             <ChevronUp className="ml-2 h-4 w-4 opacity-50" />
           ) : (
