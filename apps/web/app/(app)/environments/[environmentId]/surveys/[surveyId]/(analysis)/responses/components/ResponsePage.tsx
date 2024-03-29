@@ -119,9 +119,9 @@ const ResponsePage = ({
   }, [filters]);
 
   return (
-    <ContentWrapper>
+    <ContentWrapper className="ml-0 mr-[340px] pl-[23.9922px] pr-[24.0078px] py-12" >
       <SummaryHeader
-        environment={environment}
+className="h-auto w-auto justify-end gap-[15.9766px] items-start ml-[98.2812px] my-0 pl-[70.3906px] pr-0 pt-[11.9922px] pb-[12.0078px]"         environment={environment}
         survey={survey}
         surveyId={surveyId}
         webAppUrl={webAppUrl}
@@ -129,9 +129,9 @@ const ResponsePage = ({
         user={user}
         membershipRole={membershipRole}
       />
-      <CustomFilter environmentTags={environmentTags} attributes={attributes} survey={survey} />
+      <CustomFilter className="gap-1.5 mt-[24.0078px] mb-0 pt-[19.9375px] pb-[20.0234px]" environmentTags={environmentTags} attributes={attributes} survey={survey} />
       <SurveyResultsTabs
-        activeId="responses"
+className="h-full items-start gap-[68.75px] mr-0 my-[0.0078125px] pl-[8.86719px] pr-[11.9688px] pt-[7.69531px]"         activeId="responses"
         environmentId={environment.id}
         surveyId={surveyId}
         responseCount={responseCount}

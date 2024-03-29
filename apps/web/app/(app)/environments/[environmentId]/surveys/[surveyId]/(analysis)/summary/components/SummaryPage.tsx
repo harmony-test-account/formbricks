@@ -101,9 +101,9 @@ const SummaryPage = ({
   }, [searchParams, resetState]);
 
   return (
-    <ContentWrapper>
+    <ContentWrapper className="mx-0 pl-[11.4844px] pr-6 pt-[47.9922px] pb-[61.0625px]" >
       <SummaryHeader
-        environment={environment}
+className="items-start h-auto w-auto justify-end gap-[700.984px] ml-[89.2188px] my-0 pr-[0.0078125px]"         environment={environment}
         survey={survey}
         surveyId={surveyId}
         webAppUrl={webAppUrl}
@@ -111,9 +111,9 @@ const SummaryPage = ({
         user={user}
         membershipRole={membershipRole}
       />
-      <CustomFilter environmentTags={environmentTags} attributes={attributes} survey={survey} />
+      <CustomFilter className="gap-[5.78125px] mr-[4.5px] mt-[19.5469px] mb-0 pt-[19.9219px] pb-[48.4922px]" environmentTags={environmentTags} attributes={attributes} survey={survey} />
       <SurveyResultsTabs
-        activeId="summary"
+className="w-[19.9922px] justify-end h-full items-start gap-[133.82px] ml-[12.5px] mr-0 mt-[0.0078125px] mb-0 pl-[7.63281px] pr-[98px] pt-[7.6875px] pb-[5.63281px]"         activeId="summary"
         environmentId={environment.id}
         surveyId={surveyId}
         responseCount={responseCount}

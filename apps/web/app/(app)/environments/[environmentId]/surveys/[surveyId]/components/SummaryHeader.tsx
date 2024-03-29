@@ -60,7 +60,7 @@ const SummaryHeader = ({
           className="h-full w-full px-3 lg:px-6"
           href={`/environments/${environment.id}/surveys/${surveyId}/edit`}>
           Edit
-          <SquarePenIcon className="ml-1 h-4" />
+          <SquarePenIcon className="w-[23.9922px] h-[15.9922px] ml-0 mt-[2.00781px]" />
         </Button>
       )}
       <SuccessMessage environment={environment} survey={survey} webAppUrl={webAppUrl} user={user} />

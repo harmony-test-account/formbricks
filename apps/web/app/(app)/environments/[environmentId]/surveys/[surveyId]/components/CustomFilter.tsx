@@ -222,7 +222,7 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
             {isFilterDropDownOpen ? (
               <ChevronUp className="ml-2 h-4 w-4 opacity-50" />
             ) : (
-              <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
+              <ChevronDown className="opacity-50 w-[15.9922px] h-[15.9922px] ml-0 mt-[14.1406px]" />
             )}
           </DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -267,11 +267,11 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
             setIsDownloadDropDownOpen(value);
           }}>
           <DropdownMenuTrigger className="flex h-auto items-center justify-between rounded-md border border-slate-200 bg-white p-3 hover:border-slate-300 sm:px-6 sm:py-3">
-            <span className="text-sm text-slate-700">Download</span>
+            <span className="text-sm text-slate-700">Pepe</span>
             {isDownloadDropDownOpen ? (
               <ChevronUp className="ml-2 h-4 w-4 opacity-50" />
             ) : (
-              <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
+              <ChevronDown className="opacity-50 w-[15.9922px] h-[15.9922px] ml-0 mt-0" />
             )}
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start">
