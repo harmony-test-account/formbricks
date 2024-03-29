@@ -33,7 +33,7 @@ export default async function SurveysEditPage({ params }) {
     attributeClasses,
     responseCount,
     team,
-    session,
+    _sessidon,
     segments,
   ] = await Promise.all([
     getSurvey(params.surveyId),
@@ -47,15 +47,15 @@ export default async function SurveysEditPage({ params }) {
     getSegments(params.environmentId),
   ]);
 
-  if (!session) {
-    throw new Error("Session not found");
-  }
+  // if (!session) {
+  //   throw new Error("Session not found");
+  // }
 
   if (!team) {
     throw new Error("Team not found");
   }
 
-  const currentUserMembership = await getMembershipByUserIdTeamId(session?.user.id, team.id);
+  const currentUserMembership = await getMembershipByUserIdTeamId("asdf", team.id);
   const { isViewer } = getAccessFlags(currentUserMembership?.role);
   const isSurveyCreationDeletionDisabled = isViewer;
 

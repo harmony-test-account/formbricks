@@ -77,12 +77,9 @@ export default function SurveysList({
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-between">
+      <div className="flex items-center justify-between">
         <h1 className="my-2 text-3xl font-bold text-slate-800">Surveys</h1>
-        <Button
-          href={`/environments/${environment.id}/surveys/templates`}
-          variant="darkCTA"
-          EndIcon={PlusIcon}>
+        <Button variant="darkCTA" EndIcon={PlusIcon}>
           New survey
         </Button>
       </div>
@@ -122,7 +119,7 @@ export default function SurveysList({
             </div>
           )}
           {orientation === "grid" && (
-            <div className="grid grid-cols-4 place-content-stretch gap-4 lg:grid-cols-6 ">
+            <div className="flex gap-4">
               {filteredSurveys.map((survey) => {
                 return (
                   <SurveyCard

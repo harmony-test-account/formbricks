@@ -66,7 +66,7 @@ export default function ResponseTimeline({
   const { isViewer } = getAccessFlags(membershipRole);
 
   return (
-    <div className="space-y-4">
+    <>
       {survey.type === "web" && responses.length === 0 && !environment.widgetSetupCompleted ? (
         <EmptyInAppSurveys environment={environment} />
       ) : responses.length === 0 ? (
@@ -76,27 +76,26 @@ export default function ResponseTimeline({
           noWidgetRequired={survey.type === "link"}
         />
       ) : (
-        <div>
+        <>
           {responses.map((response) => {
             return (
-              <div key={response.id}>
-                <SingleResponseCard
-                  survey={survey}
-                  response={response}
-                  user={user}
-                  environmentTags={environmentTags}
-                  pageType="response"
-                  environment={environment}
-                  updateResponse={updateResponse}
-                  deleteResponse={deleteResponse}
-                  isViewer={isViewer}
-                />
-              </div>
+              <SingleResponseCard
+                key={response.id}
+                survey={survey}
+                response={response}
+                user={user}
+                environmentTags={environmentTags}
+                pageType="response"
+                environment={environment}
+                updateResponse={updateResponse}
+                deleteResponse={deleteResponse}
+                isViewer={isViewer}
+              />
             );
           })}
           <div ref={loadingRef}></div>
-        </div>
+        </>
       )}
-    </div>
+    </>
   );
 }

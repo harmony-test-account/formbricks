@@ -111,35 +111,36 @@ export const createSegment = async (segmentCreateInput: TSegmentCreateInput): Pr
 export const getSegments = async (environmentId: string): Promise<TSegment[]> => {
   validateInputs([environmentId, ZId]);
 
-  const segments = await unstable_cache(
-    async () => {
-      try {
-        const segments = await prisma.segment.findMany({
-          where: {
-            environmentId,
-          },
-          select: selectSegment,
-        });
+  // const segments = await unstable_cache(
+  //   async () => {
+  //     try {
+  //       const segments = await prisma.segment.findMany({
+  //         where: {
+  //           environmentId,
+  //         },
+  //         select: selectSegment,
+  //       });
 
-        if (!segments) {
-          return [];
-        }
+  //       if (!segments) {
+  //         return [];
+  //       }
 
-        return segments.map((segment) => transformPrismaSegment(segment));
-      } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-          throw new DatabaseError(error.message);
-        }
+  //       return segments.map((segment) => transformPrismaSegment(segment));
+  //     } catch (error) {
+  //       if (error instanceof Prisma.PrismaClientKnownRequestError) {
+  //         throw new DatabaseError(error.message);
+  //       }
 
-        throw error;
-      }
-    },
-    [`getSegments-${environmentId}`],
-    {
-      tags: [segmentCache.tag.byEnvironmentId(environmentId)],
-      revalidate: SERVICES_REVALIDATION_INTERVAL,
-    }
-  )();
+  //       throw error;
+  //     }
+  //   },
+  //   [`getSegments-${environmentId}`],
+  //   {
+  //     tags: [segmentCache.tag.byEnvironmentId(environmentId)],
+  //     revalidate: SERVICES_REVALIDATION_INTERVAL,
+  //   }
+  // )();
+  const segments: TSegment[] = [];
 
   return segments;
 };
