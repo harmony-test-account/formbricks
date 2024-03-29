@@ -234,10 +234,10 @@ export default function Navigation({
             </div>
           )}
 
-          <div className="w-full px-4 sm:px-6">
-            <div className="flex h-14 justify-between">
-              <div className="flex space-x-4 py-2">
-                <Image src={FaveIcon} alt="faveicon" />
+          <div className="w-full px-4 sm:px-6 pl-[23.984375px] pr-[24.015625px]">
+            <div className="flex h-14 justify-between gap-[132.046875px]">
+              <div className="flex space-x-4 py-2 gap-0 mt-[218.984375px] pr-[0.015625px] pb-0">
+                <Image className="w-[63.984375px] h-12" src={FaveIcon} alt="faveicon" />
 
                 {navigation.map((item) => {
                   const IconComponent: React.ElementType = item.icon;
@@ -265,7 +265,7 @@ export default function Navigation({
               {/* Mobile Menu */}
               <div className="flex items-center lg:hidden">
                 <Popover open={mobileNavMenuOpen} onOpenChange={setMobileNavMenuOpen}>
-                  <PopoverTrigger onClick={() => setMobileNavMenuOpen(!mobileNavMenuOpen)}>
+                  <PopoverTrigger className="w-0 h-0" onClick={() => setMobileNavMenuOpen(!mobileNavMenuOpen)}>
                     <span>
                       <MenuIcon className="h-6 w-6 rounded-md bg-slate-200 p-1 text-slate-600" />
                     </span>
@@ -296,7 +296,7 @@ export default function Navigation({
               {/* User Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild id="userDropdownTrigger">
-                  <div tabIndex={0} className="flex cursor-pointer flex-row items-center space-x-5">
+                  <div tabIndex={0} className="flex cursor-pointer flex-row items-center space-x-5 ml-[1749.25px] mt-[218.984375px] mb-2">
                     <svg
                       viewBox="0 0 80 80"
                       fill="none"
