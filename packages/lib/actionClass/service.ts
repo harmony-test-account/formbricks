@@ -12,11 +12,11 @@ import {
   ZActionClass,
   ZActionClassInput,
 } from "@formbricks/types/actionClasses";
-import { ZOptionalNumber, ZString } from "@formbricks/types/common";
+import { ZString } from "@formbricks/types/common";
 import { ZId } from "@formbricks/types/environment";
 import { DatabaseError, ResourceNotFoundError } from "@formbricks/types/errors";
 
-import { ITEMS_PER_PAGE, SERVICES_REVALIDATION_INTERVAL } from "../constants";
+import { SERVICES_REVALIDATION_INTERVAL } from "../constants";
 import { formatDateFields } from "../utils/datetime";
 import { validateInputs } from "../utils/validate";
 import { actionClassCache } from "./cache";
@@ -32,34 +32,35 @@ const select = {
   environmentId: true,
 };
 
-export const getActionClasses = async (environmentId: string, page?: number): Promise<TActionClass[]> => {
-  const actionClasses = await unstable_cache(
-    async () => {
-      validateInputs([environmentId, ZId], [page, ZOptionalNumber]);
+export const getActionClasses = async (_environmentId: string, _page?: number): Promise<TActionClass[]> => {
+  // const actionClasses = await unstable_cache(
+  //   async () => {
+  //     validateInputs([environmentId, ZId], [page, ZOptionalNumber]);
 
-      try {
-        const actionClasses = await prisma.actionClass.findMany({
-          where: {
-            environmentId: environmentId,
-          },
-          select,
-          take: page ? ITEMS_PER_PAGE : undefined,
-          skip: page ? ITEMS_PER_PAGE * (page - 1) : undefined,
-          orderBy: {
-            createdAt: "asc",
-          },
-        });
-        return actionClasses.map((actionClass) => formatDateFields(actionClass, ZActionClass));
-      } catch (error) {
-        throw new DatabaseError(`Database error when fetching actions for environment ${environmentId}`);
-      }
-    },
-    [`getActionClasses-${environmentId}-${page}`],
-    {
-      tags: [actionClassCache.tag.byEnvironmentId(environmentId)],
-      revalidate: SERVICES_REVALIDATION_INTERVAL,
-    }
-  )();
+  //     try {
+  //       const actionClasses = await prisma.actionClass.findMany({
+  //         where: {
+  //           environmentId: environmentId,
+  //         },
+  //         select,
+  //         take: page ? ITEMS_PER_PAGE : undefined,
+  //         skip: page ? ITEMS_PER_PAGE * (page - 1) : undefined,
+  //         orderBy: {
+  //           createdAt: "asc",
+  //         },
+  //       });
+  //       return actionClasses.map((actionClass) => formatDateFields(actionClass, ZActionClass));
+  //     } catch (error) {
+  //       throw new DatabaseError(`Database error when fetching actions for environment ${environmentId}`);
+  //     }
+  //   },
+  //   [`getActionClasses-${environmentId}-${page}`],
+  //   {
+  //     tags: [actionClassCache.tag.byEnvironmentId(environmentId)],
+  //     revalidate: SERVICES_REVALIDATION_INTERVAL,
+  //   }
+  // )();
+  const actionClasses: TActionClass[] = [];
   return actionClasses.map((actionClass) => formatDateFields(actionClass, ZActionClass));
 };
 

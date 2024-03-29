@@ -213,10 +213,10 @@ export const deleteSurveyAction = async (surveyId: string) => {
 };
 
 export async function generateSingleUseIdAction(surveyId: string, isEncrypted: boolean): Promise<string> {
-  const session = await getServerSession(authOptions);
-  if (!session) throw new AuthorizationError("Not authorized");
+  // const session = await getServerSession(authOptions);
+  // if (!session) throw new AuthorizationError("Not authorized");
 
-  const hasUserSurveyAccess = await canUserAccessSurvey(session.user.id, surveyId);
+  const hasUserSurveyAccess = await canUserAccessSurvey("user", surveyId);
 
   if (!hasUserSurveyAccess) throw new AuthorizationError("Not authorized");
 
@@ -224,10 +224,10 @@ export async function generateSingleUseIdAction(surveyId: string, isEncrypted: b
 }
 
 export async function getSurveysAction(environmentId: string, limit?: number, offset?: number) {
-  const session = await getServerSession(authOptions);
-  if (!session) throw new AuthorizationError("Not authorized");
+  // const session = await getServerSession(authOptions);
+  // if (!session) throw new AuthorizationError("Not authorized");
 
-  const isAuthorized = await hasUserEnvironmentAccess(session.user.id, environmentId);
+  const isAuthorized = await hasUserEnvironmentAccess("asdf", environmentId);
   if (!isAuthorized) throw new AuthorizationError("Not authorized");
 
   return await getSurveys(environmentId, limit, offset);

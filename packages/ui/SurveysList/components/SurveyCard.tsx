@@ -50,12 +50,6 @@ export default function SurveyCard({
     }
   }, [survey]);
 
-  const linkHref = useMemo(() => {
-    return survey.status === "draft"
-      ? `/environments/${environment.id}/surveys/${survey.id}/edit`
-      : `/environments/${environment.id}/surveys/${survey.id}/summary`;
-  }, [survey.status, survey.id, environment.id]);
-
   const SurveyTypeIndicator = ({ type }: { type: string }) => (
     <div className="flex items-center space-x-2 text-sm text-slate-600">
       {type === "web" ? (
@@ -75,9 +69,9 @@ export default function SurveyCard({
   const renderGridContent = () => {
     return (
       <Link
-        href={linkHref}
+        href=""
         key={survey.id}
-        className="relative col-span-2 flex h-44 flex-col justify-between rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all ease-in-out hover:scale-105 ">
+        className="relative flex h-44 flex-col justify-between rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
         <div className="flex justify-between">
           <SurveyTypeIndicator type={survey.type} />
           <SurveyDropDownMenu
@@ -93,7 +87,7 @@ export default function SurveyCard({
             deleteSurvey={deleteSurvey}
           />
         </div>
-        <div>
+        <div className="flex flex-col items-start pr-52">
           <div className="text-md font-medium text-slate-900">{survey.name}</div>
           <div
             className={cn(
@@ -103,7 +97,7 @@ export default function SurveyCard({
               surveyStatusLabel === "Draft" && "bg-slate-100",
               surveyStatusLabel === "Paused" && "bg-slate-100"
             )}>
-            <SurveyStatusIndicator status={survey.status} /> {surveyStatusLabel}
+            <SurveyStatusIndicator status={survey.status} /> <span>{surveyStatusLabel}</span>
           </div>
         </div>
       </Link>
@@ -113,10 +107,10 @@ export default function SurveyCard({
   const renderListContent = () => {
     return (
       <Link
-        href={linkHref}
+        href=""
         key={survey.id}
-        className="relative grid w-full grid-cols-8 place-items-center gap-3 rounded-xl border border-slate-200 bg-white p-4
-    shadow-sm transition-all ease-in-out hover:scale-[101%]">
+        className="shadow-smt relative grid w-full grid-cols-8 place-items-center gap-3 rounded-xl border border-slate-200 bg-white
+    p-4">
         <div className="col-span-2 flex items-center justify-self-start overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium text-slate-900">
           {survey.name}
         </div>

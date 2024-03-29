@@ -341,66 +341,70 @@ export const getSurveysByActionClassId = async (actionClassId: string, page?: nu
 };
 
 export const getSurveys = async (
-  environmentId: string,
-  limit?: number,
-  offset?: number
+  _environmentId: string,
+  _limit?: number,
+  _offset?: number
 ): Promise<TSurvey[]> => {
-  const surveys = await unstable_cache(
-    async () => {
-      validateInputs([environmentId, ZId], [limit, ZOptionalNumber], [offset, ZOptionalNumber]);
-      let surveysPrisma;
+  // const surveys = await unstable_cache(
+  //   async () => {
+  //     validateInputs([environmentId, ZId], [limit, ZOptionalNumber], [offset, ZOptionalNumber]);
+  //     let surveysPrisma;
 
-      try {
-        surveysPrisma = await prisma.survey.findMany({
-          where: {
-            environmentId,
-          },
-          select: selectSurvey,
-          orderBy: [
-            {
-              updatedAt: "desc",
-            },
-          ],
-          take: limit ? limit : undefined,
-          skip: offset ? offset : undefined,
-        });
-      } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-          console.error(error);
-          throw new DatabaseError(error.message);
-        }
+  //     try {
+  //       surveysPrisma = await prisma.survey.findMany({
+  //         where: {
+  //           environmentId,
+  //         },
+  //         select: selectSurvey,
+  //         orderBy: [
+  //           {
+  //             updatedAt: "desc",
+  //           },
+  //         ],
+  //         take: limit ? limit : undefined,
+  //         skip: offset ? offset : undefined,
+  //       });
+  //     } catch (error) {
+  //       if (error instanceof Prisma.PrismaClientKnownRequestError) {
+  //         console.error(error);
+  //         throw new DatabaseError(error.message);
+  //       }
 
-        throw error;
-      }
+  //       throw error;
+  //     }
 
-      const surveys: TSurvey[] = [];
+  //     const surveys: TSurvey[] = [];
 
-      for (const surveyPrisma of surveysPrisma) {
-        let segment: TSegment | null = null;
+  //     for (const surveyPrisma of surveysPrisma) {
+  //       let segment: TSegment | null = null;
 
-        if (surveyPrisma.segment) {
-          segment = {
-            ...surveyPrisma.segment,
-            surveys: surveyPrisma.segment.surveys.map((survey) => survey.id),
-          };
-        }
+  //       if (surveyPrisma.segment) {
+  //         segment = {
+  //           ...surveyPrisma.segment,
+  //           surveys: surveyPrisma.segment.surveys.map((survey) => survey.id),
+  //         };
+  //       }
 
-        const transformedSurvey: TSurvey = {
-          ...surveyPrisma,
-          triggers: surveyPrisma.triggers.map((trigger) => trigger.actionClass.name),
-          segment,
-        };
+  //       const transformedSurvey: TSurvey = {
+  //         ...surveyPrisma,
+  //         triggers: surveyPrisma.triggers.map((trigger) => trigger.actionClass.name),
+  //         segment,
+  //       };
 
-        surveys.push(transformedSurvey);
-      }
-      return surveys;
-    },
-    [`getSurveys-${environmentId}-${limit}-${offset}`],
-    {
-      tags: [surveyCache.tag.byEnvironmentId(environmentId)],
-      revalidate: SERVICES_REVALIDATION_INTERVAL,
-    }
-  )();
+  //       surveys.push(transformedSurvey);
+  //     }
+  //     return surveys;
+  //   },
+  //   [`getSurveys-${environmentId}-${limit}-${offset}`],
+  //   {
+  //     tags: [surveyCache.tag.byEnvironmentId(environmentId)],
+  //     revalidate: SERVICES_REVALIDATION_INTERVAL,
+  //   }
+  // )();
+  const surveys: TSurvey[] = (await Promise.all([
+    await getSurvey("asdf"),
+    await getSurvey("asdf"),
+  ])) as TSurvey[];
 
   // since the unstable_cache function does not support deserialization of dates, we need to manually deserialize them
   // https://github.com/vercel/next.js/issues/51613

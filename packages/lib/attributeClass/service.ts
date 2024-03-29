@@ -13,11 +13,11 @@ import {
   ZAttributeClassType,
   ZAttributeClassUpdateInput,
 } from "@formbricks/types/attributeClasses";
-import { ZOptionalNumber, ZString } from "@formbricks/types/common";
+import { ZString } from "@formbricks/types/common";
 import { ZId } from "@formbricks/types/environment";
 import { DatabaseError } from "@formbricks/types/errors";
 
-import { ITEMS_PER_PAGE, SERVICES_REVALIDATION_INTERVAL } from "../constants";
+import { SERVICES_REVALIDATION_INTERVAL } from "../constants";
 import { formatDateFields } from "../utils/datetime";
 import { validateInputs } from "../utils/validate";
 import { attributeClassCache } from "./cache";
@@ -48,44 +48,45 @@ export const getAttributeClass = async (attributeClassId: string): Promise<TAttr
 };
 
 export const getAttributeClasses = async (
-  environmentId: string,
-  page?: number
+  _environmentId: string,
+  _page?: number
 ): Promise<TAttributeClass[]> => {
-  const attributeClasses = await unstable_cache(
-    async () => {
-      validateInputs([environmentId, ZId], [page, ZOptionalNumber]);
+  // const attributeClasses = await unstable_cache(
+  //   async () => {
+  //     validateInputs([environmentId, ZId], [page, ZOptionalNumber]);
 
-      try {
-        const attributeClasses = await prisma.attributeClass.findMany({
-          where: {
-            environmentId: environmentId,
-          },
-          orderBy: {
-            createdAt: "asc",
-          },
-          take: page ? ITEMS_PER_PAGE : undefined,
-          skip: page ? ITEMS_PER_PAGE * (page - 1) : undefined,
-        });
+  //     try {
+  //       const attributeClasses = await prisma.attributeClass.findMany({
+  //         where: {
+  //           environmentId: environmentId,
+  //         },
+  //         orderBy: {
+  //           createdAt: "asc",
+  //         },
+  //         take: page ? ITEMS_PER_PAGE : undefined,
+  //         skip: page ? ITEMS_PER_PAGE * (page - 1) : undefined,
+  //       });
 
-        return attributeClasses.filter((attributeClass) => {
-          if (attributeClass.name === "userId" && attributeClass.type === "automatic") {
-            return false;
-          }
+  //       return attributeClasses.filter((attributeClass) => {
+  //         if (attributeClass.name === "userId" && attributeClass.type === "automatic") {
+  //           return false;
+  //         }
 
-          return true;
-        });
-      } catch (error) {
-        throw new DatabaseError(
-          `Database error when fetching attributeClasses for environment ${environmentId}`
-        );
-      }
-    },
-    [`getAttributeClasses-${environmentId}-${page}`],
-    {
-      tags: [attributeClassCache.tag.byEnvironmentId(environmentId)],
-      revalidate: SERVICES_REVALIDATION_INTERVAL,
-    }
-  )();
+  //         return true;
+  //       });
+  //     } catch (error) {
+  //       throw new DatabaseError(
+  //         `Database error when fetching attributeClasses for environment ${environmentId}`
+  //       );
+  //     }
+  //   },
+  //   [`getAttributeClasses-${environmentId}-${page}`],
+  //   {
+  //     tags: [attributeClassCache.tag.byEnvironmentId(environmentId)],
+  //     revalidate: SERVICES_REVALIDATION_INTERVAL,
+  //   }
+  // )();
+  const attributeClasses: TAttributeClass[] = [];
   return attributeClasses.map((attributeClass) => formatDateFields(attributeClass, ZAttributeClass));
 };
 

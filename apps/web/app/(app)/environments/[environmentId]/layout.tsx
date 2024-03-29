@@ -43,7 +43,7 @@ export default async function EnvironmentLayout({ children, params }) {
         <FormbricksClient session={session} />
         <ToasterClient />
         <EnvironmentsNavbar environmentId={params.environmentId} session={session} />
-        <main className="h-full flex-1 overflow-y-auto bg-slate-50">
+        <main className="h-full overflow-y-auto bg-slate-50">
           {children}
           <main />
         </main>

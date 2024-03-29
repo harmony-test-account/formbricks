@@ -11,7 +11,7 @@ import {
   getTodayDate,
 } from "@/app/lib/surveys/surveys";
 import { differenceInDays, format, startOfDay, subDays } from "date-fns";
-import { ChevronDown, ChevronUp, DownloadIcon } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -204,116 +204,107 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
 
   return (
     <>
-      <div className="relative mb-12 flex justify-between">
-        <div className="flex justify-stretch gap-x-1.5">
-          <ResponseFilter />
-          <DropdownMenu
-            onOpenChange={(value) => {
-              value && handleDatePickerClose();
-              setIsFilterDropDownOpen(value);
-            }}>
-            <DropdownMenuTrigger>
-              <div className="flex h-auto min-w-[8rem] items-center justify-between rounded-md border border-slate-200 bg-white p-3 hover:border-slate-300 sm:min-w-[11rem] sm:px-6 sm:py-3">
-                <span className="text-sm text-slate-700">
-                  {filterRange === FilterDropDownLabels.CUSTOM_RANGE
-                    ? `${dateRange?.from ? format(dateRange?.from, "dd LLL") : "Select first date"} - ${
-                        dateRange?.to ? format(dateRange.to, "dd LLL") : "Select last date"
-                      }`
-                    : filterRange}
-                </span>
-                {isFilterDropDownOpen ? (
-                  <ChevronUp className="ml-2 h-4 w-4 opacity-50" />
-                ) : (
-                  <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
-                )}
-              </div>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem
-                className="hover:ring-0"
-                onClick={() => {
-                  setFilterRange(FilterDropDownLabels.ALL_TIME);
-                  setDateRange({ from: undefined, to: getTodayDate() });
-                }}>
-                <p className="text-slate-700">All time</p>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                className="hover:ring-0"
-                onClick={() => {
-                  setFilterRange(FilterDropDownLabels.LAST_7_DAYS);
-                  setDateRange({ from: startOfDay(subDays(new Date(), 7)), to: getTodayDate() });
-                }}>
-                <p className="text-slate-700">Last 7 days</p>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                className="hover:ring-0"
-                onClick={() => {
-                  setFilterRange(FilterDropDownLabels.LAST_30_DAYS);
-                  setDateRange({ from: startOfDay(subDays(new Date(), 30)), to: getTodayDate() });
-                }}>
-                <p className="text-slate-700">Last 30 days</p>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                className="hover:ring-0"
-                onClick={() => {
-                  setIsDatePickerOpen(true);
-                  setFilterRange(FilterDropDownLabels.CUSTOM_RANGE);
-                  setSelectingDate(DateSelected.FROM);
-                }}>
-                <p className="text-sm text-slate-700 hover:ring-0">Custom range...</p>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <DropdownMenu
-            onOpenChange={(value) => {
-              value && handleDatePickerClose();
-              setIsDownloadDropDownOpen(value);
-            }}>
-            <DropdownMenuTrigger asChild className="focus:bg-muted cursor-pointer outline-none">
-              <div className="min-w-auto h-auto rounded-md border border-slate-200 bg-white p-3 hover:border-slate-300 sm:flex sm:min-w-[11rem] sm:px-6 sm:py-3">
-                <div className="hidden w-full items-center justify-between sm:flex">
-                  <span className="text-sm text-slate-700">Download</span>
-                  {isDownloadDropDownOpen ? (
-                    <ChevronUp className="ml-2 h-4 w-4 opacity-50" />
-                  ) : (
-                    <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
-                  )}
-                </div>
-                <DownloadIcon className="block h-4 sm:hidden" />
-              </div>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start">
-              <DropdownMenuItem
-                className="hover:ring-0"
-                onClick={() => {
-                  handleDowndloadResponses(FilterDownload.ALL, "csv");
-                }}>
-                <p className="text-slate-700">All responses (CSV)</p>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                className="hover:ring-0"
-                onClick={() => {
-                  handleDowndloadResponses(FilterDownload.ALL, "xlsx");
-                }}>
-                <p className="text-slate-700">All responses (Excel)</p>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                className="hover:ring-0"
-                onClick={() => {
-                  handleDowndloadResponses(FilterDownload.FILTER, "csv");
-                }}>
-                <p className="text-slate-700">Current selection (CSV)</p>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                className="hover:ring-0"
-                onClick={() => {
-                  handleDowndloadResponses(FilterDownload.FILTER, "xlsx");
-                }}>
-                <p className="text-slate-700">Current selection (Excel)</p>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+      <div className="relative mb-6 flex gap-x-1.5 py-5">
+        <ResponseFilter />
+        <DropdownMenu
+          onOpenChange={(value) => {
+            value && handleDatePickerClose();
+            setIsFilterDropDownOpen(value);
+          }}>
+          <DropdownMenuTrigger className="flex h-auto items-center justify-between rounded-md border border-slate-200 bg-white p-3 hover:border-slate-300 sm:px-6 sm:py-3">
+            <span className="text-sm text-slate-700">
+              {filterRange === FilterDropDownLabels.CUSTOM_RANGE
+                ? `${dateRange?.from ? format(dateRange?.from, "dd LLL") : "Select first date"} - ${
+                    dateRange?.to ? format(dateRange.to, "dd LLL") : "Select last date"
+                  }`
+                : filterRange}
+            </span>
+            {isFilterDropDownOpen ? (
+              <ChevronUp className="ml-2 h-4 w-4 opacity-50" />
+            ) : (
+              <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
+            )}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem
+              className="hover:ring-0"
+              onClick={() => {
+                setFilterRange(FilterDropDownLabels.ALL_TIME);
+                setDateRange({ from: undefined, to: getTodayDate() });
+              }}>
+              <p className="text-slate-700">All time</p>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="hover:ring-0"
+              onClick={() => {
+                setFilterRange(FilterDropDownLabels.LAST_7_DAYS);
+                setDateRange({ from: startOfDay(subDays(new Date(), 7)), to: getTodayDate() });
+              }}>
+              <p className="text-slate-700">Last 7 days</p>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="hover:ring-0"
+              onClick={() => {
+                setFilterRange(FilterDropDownLabels.LAST_30_DAYS);
+                setDateRange({ from: startOfDay(subDays(new Date(), 30)), to: getTodayDate() });
+              }}>
+              <p className="text-slate-700">Last 30 days</p>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="hover:ring-0"
+              onClick={() => {
+                setIsDatePickerOpen(true);
+                setFilterRange(FilterDropDownLabels.CUSTOM_RANGE);
+                setSelectingDate(DateSelected.FROM);
+              }}>
+              <p className="text-sm text-slate-700 hover:ring-0">Custom range...</p>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <DropdownMenu
+          onOpenChange={(value) => {
+            value && handleDatePickerClose();
+            setIsDownloadDropDownOpen(value);
+          }}>
+          <DropdownMenuTrigger className="flex h-auto items-center justify-between rounded-md border border-slate-200 bg-white p-3 hover:border-slate-300 sm:px-6 sm:py-3">
+            <span className="text-sm text-slate-700">Download</span>
+            {isDownloadDropDownOpen ? (
+              <ChevronUp className="ml-2 h-4 w-4 opacity-50" />
+            ) : (
+              <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
+            )}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start">
+            <DropdownMenuItem
+              className="hover:ring-0"
+              onClick={() => {
+                handleDowndloadResponses(FilterDownload.ALL, "csv");
+              }}>
+              <p className="text-slate-700">All responses (CSV)</p>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="hover:ring-0"
+              onClick={() => {
+                handleDowndloadResponses(FilterDownload.ALL, "xlsx");
+              }}>
+              <p className="text-slate-700">All responses (Excel)</p>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="hover:ring-0"
+              onClick={() => {
+                handleDowndloadResponses(FilterDownload.FILTER, "csv");
+              }}>
+              <p className="text-slate-700">Current selection (CSV)</p>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="hover:ring-0"
+              onClick={() => {
+                handleDowndloadResponses(FilterDownload.FILTER, "xlsx");
+              }}>
+              <p className="text-slate-700">Current selection (Excel)</p>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         {isDatePickerOpen && (
           <div ref={datePickerRef} className="absolute top-full z-50 my-2 rounded-md border bg-white">
             <Calendar

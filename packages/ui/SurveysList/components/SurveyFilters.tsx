@@ -1,4 +1,4 @@
-import { ChevronDownIcon, Equal, Grid2X2, Search, X } from "lucide-react";
+import { ChevronDownIcon, Search, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { TSurvey } from "@formbricks/types/surveys";
@@ -6,7 +6,6 @@ import { TSurvey } from "@formbricks/types/surveys";
 import { Button } from "../../Button";
 import { Checkbox } from "../../Checkbox";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../../DropdownMenu";
-import { TooltipRenderer } from "../../Tooltip";
 
 interface SurveyFilterProps {
   surveys: TSurvey[];
@@ -74,17 +73,7 @@ const sortOptions = [
   // Add other sorting options as needed
 ];
 
-const getToolTipContent = (orientation: string) => {
-  return <div>{orientation} View</div>;
-};
-
-export default function SurveyFilters({
-  surveys,
-  setFilteredSurveys,
-  orientation,
-  setOrientation,
-  userId,
-}: SurveyFilterProps) {
+export default function SurveyFilters({ surveys, setFilteredSurveys, userId }: SurveyFilterProps) {
   const [createdByFilter, setCreatedByFilter] = useState<string[]>([]);
   const [statusFilters, setStatusFilters] = useState<string[]>([]);
   const [typeFilters, setTypeFilters] = useState<string[]>([]);
@@ -210,7 +199,7 @@ export default function SurveyFilters({
           <Search className="h-4 w-4" />
           <input
             type="text"
-            className="border-none bg-transparent placeholder:text-sm"
+            className="border-none bg-transparent py-0 placeholder:text-sm"
             placeholder="Search by survey name"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -264,37 +253,13 @@ export default function SurveyFilters({
         )}
       </div>
       <div className="flex space-x-2">
-        <TooltipRenderer
-          shouldRender={true}
-          tooltipContent={getToolTipContent("List")}
-          className="bg-slate-900 text-white">
-          <div
-            className={`flex  h-8 w-8  items-center justify-center  rounded-lg border  p-1 ${orientation === "list" ? "bg-slate-900 text-white" : "bg-white"}`}
-            onClick={() => setOrientation("list")}>
-            <Equal className="h-5 w-5" />
-          </div>
-        </TooltipRenderer>
-
-        <TooltipRenderer
-          shouldRender={true}
-          tooltipContent={getToolTipContent("Grid")}
-          className="bg-slate-900 text-white">
-          <div
-            className={`flex h-8 w-8  items-center justify-center rounded-lg border  p-1 ${orientation === "grid" ? "bg-slate-900 text-white" : "bg-white"}`}
-            onClick={() => setOrientation("grid")}>
-            <Grid2X2 className="h-5 w-5" />
-          </div>
-        </TooltipRenderer>
-
         <DropdownMenu>
           <DropdownMenuTrigger
             asChild
             className="surveyFilterDropdown h-full cursor-pointer border border-slate-700 outline-none hover:bg-slate-900">
-            <div className="min-w-auto h-8 rounded-md border sm:flex sm:px-2">
-              <div className="hidden w-full items-center justify-between hover:text-white sm:flex">
-                <span className="text-sm ">Sort by: {sortBy.label}</span>
-                <ChevronDownIcon className="ml-2 h-4 w-4" />
-              </div>
+            <div className="min-w-auto flex h-8 items-center rounded-md border px-2">
+              <span className="text-sm ">Sort by: {sortBy.label}</span>
+              <ChevronDownIcon className="ml-2 h-4 w-4" />
             </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="bg-slate-900 ">
