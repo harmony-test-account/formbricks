@@ -27,13 +27,13 @@ export default function SurveyResultsTabs({
     {
       id: "responses",
       label: `Responses ${responseCount !== null ? `(${responseCount})` : ""}`,
-      icon: <InboxIcon className="h-5 w-5" />,
+      icon: <InboxIcon className="w-5 h-full" />,
       href: `/environments/${environmentId}/surveys/${surveyId}/responses?referer=true`,
     },
   ];
 
   return (
-    <div className="mb-7 flex h-14 border-b">
+    <div className="mb-7 flex h-14 border-b gap-12">
       <Link
         key={tabs[0].id}
         onClick={() => {
@@ -51,7 +51,7 @@ export default function SurveyResultsTabs({
         {tabs[0].label}
       </Link>
       <Link
-        key={tabs[1].id}
+/** gap-[13px] items-start pl-[7px] pr-3 pt-2 */         key={tabs[1].id}
         onClick={() => {
           revalidateSurveyIdPath(environmentId, surveyId);
         }}
@@ -63,7 +63,7 @@ export default function SurveyResultsTabs({
           "flex items-center px-3 text-sm font-medium"
         )}
         aria-current={tabs[1].id === activeId ? "page" : undefined}>
-        {tabs[1].icon && <div className="mr-2 h-5 w-5">{tabs[1].icon}</div>}
+        {tabs[1].icon && <div className="h-5 w-5 mr-0">{tabs[1].icon}</div>}
         {tabs[1].label}
       </Link>
     </div>
