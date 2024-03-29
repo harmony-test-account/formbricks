@@ -11,7 +11,7 @@ interface SurveyResultsTabProps {
   responseCount: number | null;
 }
 
-export default function SurveyResultsTab({
+export default function SurveyResultsTabs({
   activeId,
   environmentId,
   surveyId,
@@ -33,27 +33,41 @@ export default function SurveyResultsTab({
   ];
 
   return (
-    <div>
-      <div className="mb-7 h-14 w-full border-b">
-        <nav className="flex h-full items-center space-x-4 justify-self-center" aria-label="Tabs">
-          {tabs.map((tab) => (
-            <Link
-              key={tab.id}
-              onClick={() => {
-                revalidateSurveyIdPath(environmentId, surveyId);
-              }}
-              href={tab.href}
-              className={cn(
-                tab.id === activeId
-                  ? " border-brand-dark text-brand-dark border-b-2 font-semibold"
-                  : "text-slate-500 hover:text-slate-700",
-                "flex h-full items-center px-3 text-sm font-medium"
-              )}
-              aria-current={tab.id === activeId ? "page" : undefined}>
-              {tab.icon && <div className="mr-2 h-5 w-5">{tab.icon}</div>}
-              {tab.label}
-            </Link>
-          ))}
+    <div className="mb-7">
+      <div className="h-14 w-full border-b">
+        <nav className="flex h-full space-x-4 justify-self-center" aria-label="Tabs">
+          <Link
+            key={tabs[0].id}
+            onClick={() => {
+              revalidateSurveyIdPath(environmentId, surveyId);
+            }}
+            href={tabs[0].href}
+            className={cn(
+              tabs[0].id === activeId
+                ? " border-brand-dark text-brand-dark border-b-2 font-semibold"
+                : "text-slate-500 hover:text-slate-700",
+              "flex items-center px-3 text-sm font-medium"
+            )}
+            aria-current={tabs[0].id === activeId ? "page" : undefined}>
+            {tabs[0].icon && <div className="mr-2 h-5 w-5">{tabs[0].icon}</div>}
+            {tabs[0].label}
+          </Link>
+          <Link
+            key={tabs[1].id}
+            onClick={() => {
+              revalidateSurveyIdPath(environmentId, surveyId);
+            }}
+            href={tabs[1].href}
+            className={cn(
+              tabs[1].id === activeId
+                ? " border-brand-dark text-brand-dark border-b-2 font-semibold"
+                : "text-slate-500 hover:text-slate-700",
+              "flex items-center px-3 text-sm font-medium"
+            )}
+            aria-current={tabs[1].id === activeId ? "page" : undefined}>
+            {tabs[1].icon && <div className="mr-2 h-5 w-5">{tabs[1].icon}</div>}
+            {tabs[1].label}
+          </Link>
         </nav>
       </div>
     </div>
