@@ -27,7 +27,7 @@ interface SummaryListProps {
 
 export default function SummaryList({ summary, environment, responseCount, survey }: SummaryListProps) {
   return (
-    <div className="mt-10 space-y-8">
+    <div className="space-y-8 ml-[9.23438px] mr-[7.61719px] mt-[7.69531px]">
       {survey.type === "web" && responseCount === 0 && !environment.widgetSetupCompleted ? (
         <EmptyInAppSurveys environment={environment} />
       ) : !responseCount ? (
