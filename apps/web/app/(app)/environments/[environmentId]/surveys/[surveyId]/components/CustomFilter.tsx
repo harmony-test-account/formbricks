@@ -204,7 +204,7 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
 
   return (
     <>
-      <div className="relative mb-6 flex gap-x-1.5 py-5">
+      <div className="relative flex gap-x-1.5 py-5 mr-[-315.961px] ml-[35.9531px] mt-[24.0078px] mb-0">
         <ResponseFilter />
         <DropdownMenu
           onOpenChange={(value) => {
