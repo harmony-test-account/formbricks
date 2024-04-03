@@ -296,9 +296,9 @@ export default function Navigation({
               {/* User Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild id="userDropdownTrigger">
-                  <div tabIndex={0} className="flex cursor-pointer flex-row items-center space-x-5">
+                  <div tabIndex={0} className="flex cursor-pointer flex-row space-x-5 gap-[19.9167px] items-start pr-0 pt-[7.96875px] pb-0">
                     <svg
-                      viewBox="0 0 80 80"
+className="w-[39.9896px] my-0"                       viewBox="0 0 80 80"
                       fill="none"
                       role="img"
                       xmlns="http://www.w3.org/2000/svg"
@@ -328,13 +328,13 @@ export default function Navigation({
                       </g>
                     </svg>
 
-                    <div>
+                    <div className="ml-[19.8228px] mt-[0.9375px] mb-0" >
                       <p className="ph-no-capture ph-no-capture -mb-0.5 text-sm font-bold text-slate-700">
                         {truncate(product!.name, 30)}
                       </p>
                       <p className="text-sm text-slate-500">{capitalizeFirstLetter(team?.name)}</p>
                     </div>
-                    <ChevronDownIcon className="h-5 w-5 text-slate-700 hover:text-slate-500" />
+                    <ChevronDownIcon className="text-slate-700 hover:text-slate-500 h-[37.9792px] w-[39.9375px] ml-0 mt-[1.04166px]" />
                   </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56" id="userDropdownContentWrapper">
