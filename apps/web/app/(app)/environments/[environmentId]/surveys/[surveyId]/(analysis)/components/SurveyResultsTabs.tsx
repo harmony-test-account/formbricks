@@ -33,7 +33,7 @@ export default function SurveyResultsTabs({
   ];
 
   return (
-    <div className="mb-7 flex h-14 border-b">
+    <div className="mb-7 flex h-14 border-b gap-[72px]">
       <Link
         key={tabs[0].id}
         onClick={() => {
