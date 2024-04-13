@@ -204,7 +204,7 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
 
   return (
     <>
-      <div className="relative mb-6 flex gap-x-1.5 py-5">
+      <div className="relative mb-6 flex py-5 justify-around gap-0">
         <ResponseFilter />
         <DropdownMenu
           onOpenChange={(value) => {
@@ -222,7 +222,7 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
             {isFilterDropDownOpen ? (
               <ChevronUp className="ml-2 h-4 w-4 opacity-50" />
             ) : (
-              <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
+              <ChevronDown className="h-4 opacity-50 w-4 ml-2 mt-0" />
             )}
           </DropdownMenuTrigger>
           <DropdownMenuContent>
