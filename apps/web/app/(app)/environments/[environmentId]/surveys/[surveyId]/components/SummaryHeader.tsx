@@ -3,7 +3,6 @@
 import SuccessMessage from "@/app/(app)/environments/[environmentId]/surveys/[surveyId]/(analysis)/summary/components/SuccessMessage";
 import { ShareIcon, SquarePenIcon } from "lucide-react";
 import { useState } from "react";
-
 import { getAccessFlags } from "@formbricks/lib/membership/utils";
 import { TEnvironment } from "@formbricks/types/environment";
 import { TMembershipRole } from "@formbricks/types/memberships";
@@ -12,9 +11,7 @@ import { TSurvey } from "@formbricks/types/surveys";
 import { TUser } from "@formbricks/types/user";
 import { Badge } from "@formbricks/ui/Badge";
 import { Button } from "@formbricks/ui/Button";
-
 import ShareEmbedSurvey from "../(analysis)/summary/components/ShareEmbedSurvey";
-
 interface SummaryHeaderProps {
   surveyId: string;
   environment: TEnvironment;
@@ -34,7 +31,6 @@ const SummaryHeader = ({
 }: SummaryHeaderProps) => {
   const { isViewer } = getAccessFlags(membershipRole);
   const [showShareSurveyModal, setShowShareSurveyModal] = useState(false);
-
   return (
     <div className="mb-6 mt-6 flex items-center justify-between">
       <div>
@@ -56,11 +52,11 @@ const SummaryHeader = ({
       {!isViewer && (
         <Button
           variant="darkCTA"
-          className="h-full w-full px-3 lg:px-6"
+          className="h-full w-full px-3 lg:px-6 bg-amber-400"
           href="#"
           /*href={`/environments/${environment.id}/surveys/${surveyId}/edit`}*/
         >
-          Edit
+          Change
           <SquarePenIcon className="ml-1 h-4" />
         </Button>
       )}
@@ -77,5 +73,4 @@ const SummaryHeader = ({
     </div>
   );
 };
-
 export default SummaryHeader;

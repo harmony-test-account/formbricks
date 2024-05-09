@@ -1,5 +1,6 @@
 "use client";
 
+import { DropdownMenuTrigger } from "@formbricks/ui/DropdownMenu";
 import { useResponseFilter } from "@/app/(app)/environments/[environmentId]/components/ResponseFilterContext";
 import {
   getResponseCountAction,
@@ -14,7 +15,6 @@ import SummaryHeader from "@/app/(app)/environments/[environmentId]/surveys/[sur
 import { getFormattedFilters } from "@/app/lib/surveys/surveys";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-
 import { checkForRecallInHeadline } from "@formbricks/lib/utils/recall";
 import { TEnvironment } from "@formbricks/types/environment";
 import { TMembershipRole } from "@formbricks/types/memberships";
@@ -24,7 +24,6 @@ import { TSurvey } from "@formbricks/types/surveys";
 import { TTag } from "@formbricks/types/tags";
 import { TUser } from "@formbricks/types/user";
 import ContentWrapper from "@formbricks/ui/ContentWrapper";
-
 const initialSurveySummary: TSurveySummary = {
   meta: {
     completedPercentage: 0,
@@ -39,7 +38,6 @@ const initialSurveySummary: TSurveySummary = {
   dropOff: [],
   summary: [],
 };
-
 interface SummaryPageProps {
   environment: TEnvironment;
   survey: TSurvey;
@@ -51,7 +49,6 @@ interface SummaryPageProps {
   attributes: TSurveyPersonAttributes;
   membershipRole?: TMembershipRole;
 }
-
 const SummaryPage = ({
   environment,
   survey,
@@ -67,12 +64,10 @@ const SummaryPage = ({
   const { selectedFilter, dateRange, resetState } = useResponseFilter();
   const [surveySummary, setSurveySummary] = useState<TSurveySummary>(initialSurveySummary);
   const [showDropOffs, setShowDropOffs] = useState<boolean>(false);
-
   const filters = useMemo(
     () => getFormattedFilters(survey, selectedFilter, dateRange),
     [survey, selectedFilter, dateRange]
   );
-
   useEffect(() => {
     const handleInitialData = async () => {
       const responseCount = await getResponseCountAction(surveyId, filters);
@@ -84,22 +79,17 @@ const SummaryPage = ({
       const response = await getSurveySummaryAction(surveyId, filters);
       setSurveySummary(response);
     };
-
     handleInitialData();
   }, [filters, surveyId]);
-
   const searchParams = useSearchParams();
-
   survey = useMemo(() => {
     return checkForRecallInHeadline(survey, "default");
   }, [survey]);
-
   useEffect(() => {
     if (!searchParams?.get("referer")) {
       resetState();
     }
   }, [searchParams, resetState]);
-
   return (
     <ContentWrapper>
       <SummaryHeader
@@ -125,14 +115,7 @@ const SummaryPage = ({
         setShowDropOffs={setShowDropOffs}
       />
       {showDropOffs && <SummaryDropOffs dropOff={surveySummary.dropOff} />}
-      <SummaryList
-        summary={surveySummary.summary}
-        responseCount={responseCount}
-        survey={survey}
-        environment={environment}
-      />
     </ContentWrapper>
   );
 };
-
 export default SummaryPage;
