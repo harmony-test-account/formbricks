@@ -56,12 +56,10 @@ const SummaryHeader = ({
       {!isViewer && (
         <Button
           variant="darkCTA"
-          className="h-full w-full px-3 lg:px-6"
+          className="h-full w-full px-3 lg:px-6 bg-[#009ae6]"
           href="#"
           /*href={`/environments/${environment.id}/surveys/${surveyId}/edit`}*/
-        >
-          Edit
-          <SquarePenIcon className="ml-1 h-4" />
+        >Change<SquarePenIcon className="ml-1 h-4" />
         </Button>
       )}
       <SuccessMessage environment={environment} survey={survey} webAppUrl={webAppUrl} user={user} />
