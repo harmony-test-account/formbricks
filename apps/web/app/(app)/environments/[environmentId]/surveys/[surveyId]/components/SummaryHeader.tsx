@@ -36,13 +36,13 @@ const SummaryHeader = ({
   const [showShareSurveyModal, setShowShareSurveyModal] = useState(false);
 
   return (
-    <div className="mb-6 mt-6 flex items-center justify-between">
-      <div>
-        <div className="flex gap-4">
+    <div className="flex items-center justify-between mr-0 my-0">
+      <div className="pt-0.5">
+        <div className="flex gap-4 items-start">
           <p className="text-3xl font-bold text-slate-800">{survey.name}</p>
           {survey.resultShareKey && <Badge text="Results are public" type="warning" size="normal"></Badge>}
         </div>
-        <span className="text-base font-extralight text-slate-600">{product.name}</span>
+        <span className="text-base font-extralight text-slate-600 ml-[151px]">{product.name}</span>
       </div>
       {survey.type === "link" && (
         <Button
