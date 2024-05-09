@@ -210,7 +210,7 @@ export default function Navigation({
           )}
 
           <div className="w-full px-4 sm:px-6">
-            <div className="flex h-14 justify-between">
+            <div className="flex h-14 justify-between gap-0">
               <div className="flex space-x-4 py-2">
                 <Image src={FaveIcon} alt="faveicon" />
 
