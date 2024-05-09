@@ -44,7 +44,7 @@ export default function SurveyResultsTabs({
           tabs[0].id === activeId
             ? " border-brand-dark text-brand-dark border-b-2 font-semibold"
             : "text-slate-500 hover:text-slate-700",
-          "flex items-center px-3 text-sm font-medium"
+          "flex items-center px-3 font-medium text-base text-[#0300C4FF] border-[#0300C4FF]"
         )}
         aria-current={tabs[0].id === activeId ? "page" : undefined}>
         {tabs[0].icon && <div className="mr-2 h-5 w-5">{tabs[0].icon}</div>}
@@ -60,7 +60,7 @@ export default function SurveyResultsTabs({
           tabs[1].id === activeId
             ? " border-brand-dark text-brand-dark border-b-2 font-semibold"
             : "text-slate-500 hover:text-slate-700",
-          "flex items-center px-3 text-sm font-medium"
+          "flex items-center px-3 font-medium text-base"
         )}
         aria-current={tabs[1].id === activeId ? "page" : undefined}>
         {tabs[1].icon && <div className="mr-2 h-5 w-5">{tabs[1].icon}</div>}

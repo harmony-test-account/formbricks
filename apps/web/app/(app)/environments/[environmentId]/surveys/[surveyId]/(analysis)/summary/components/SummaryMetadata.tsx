@@ -26,7 +26,7 @@ const StatCard: React.FunctionComponent<{
     <p className="flex text-sm text-slate-600">
       {label}
       {percentage && percentage !== "NaN%" && (
-        <span className="ml-1 rounded-xl bg-slate-100 px-2 py-1 text-xs">{percentage}</span>
+        <span className="ml-1 rounded-xl px-2 py-1 text-xs bg-slate-100">{percentage}</span>
       )}
     </p>
     <p className="px-0.5 text-2xl font-bold text-slate-800">{value}</p>
@@ -38,21 +38,21 @@ export default function SummaryMetadata({ surveySummary }: SummaryMetadataProps)
     surveySummary;
 
   return (
-    <div className="flex flex-col-reverse gap-y-2 py-4 lg:flex-row lg:gap-x-2">
+    <div className="flex flex-col-reverse gap-y-2 py-4 lg:flex-row lg:gap-x-3">
       <StatCard
-        label="Displays"
+        label="Display"
         percentage="100%"
         value={displayCount === 0 ? <span>-</span> : displayCount}
         tooltipText="Number of times the survey has been viewed."
       />
       <StatCard
-        label="Starts"
+        label="Start"
         percentage={`${Math.round(startsPercentage)}%`}
         value={totalResponses === 0 ? <span>-</span> : totalResponses}
         tooltipText="Number of times the survey has been started."
       />
       <StatCard
-        label="Responses"
+        label="Response"
         percentage={`${Math.round(completedPercentage)}%`}
         value={completedResponses === 0 ? <span>-</span> : completedResponses}
         tooltipText="Number of times the survey has been completed."
