@@ -36,7 +36,7 @@ const SummaryHeader = ({
   const [showShareSurveyModal, setShowShareSurveyModal] = useState(false);
 
   return (
-    <div className="mb-6 mt-6 flex items-center justify-between">
+    <div className="flex items-center justify-between my-0">
       <div>
         <div className="flex gap-4">
           <p className="text-3xl font-bold text-slate-800">{survey.name}</p>
