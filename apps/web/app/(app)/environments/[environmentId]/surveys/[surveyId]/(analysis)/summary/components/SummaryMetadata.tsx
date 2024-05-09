@@ -20,16 +20,16 @@ const StatCard: React.FunctionComponent<{
 }> = ({ label, percentage, value, className }) => (
   <div
     className={cn(
-      "flex cursor-default flex-col items-start justify-between space-y-2 rounded-lg border border-slate-200 bg-white p-4 text-left shadow-sm",
+      "flex cursor-default flex-col items-start justify-between space-y-2 rounded-lg border bg-white p-4 text-left shadow-sm border-[#1E5CAEFF]",
       className
     )}>
-    <p className="flex text-sm text-slate-600">
+    <p className="flex text-sm text-slate-600 pr-[3.8e-06px] gap-1">
       {label}
       {percentage && percentage !== "NaN%" && (
-        <span className="ml-1 rounded-xl bg-slate-100 px-2 py-1 text-xs">{percentage}</span>
+        <span className="rounded-xl text-xs bg-[#40C115FF] ml-0 px-2 py-1">{percentage}</span>
       )}
     </p>
-    <p className="px-0.5 text-2xl font-bold text-slate-800">{value}</p>
+    <p className="px-0.5 font-bold text-slate-800 text-4xl">{value}</p>
   </div>
 );
 
@@ -38,7 +38,7 @@ export default function SummaryMetadata({ surveySummary }: SummaryMetadataProps)
     surveySummary;
 
   return (
-    <div className="flex flex-col-reverse gap-y-2 py-4 lg:flex-row lg:gap-x-2">
+    <div className="flex flex-col-reverse gap-y-2 py-4 lg:flex-row lg:gap-x-2 mt-7">
       <StatCard
         label="Displays"
         percentage="100%"
