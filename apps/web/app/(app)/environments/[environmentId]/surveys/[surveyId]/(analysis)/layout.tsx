@@ -25,7 +25,7 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
 };
 
 const SurveyLayout = ({ children }) => {
-  return <div>{children}</div>;
+  return <div className="px-[340px]">{children}</div>;
 };
 
 export default SurveyLayout;
