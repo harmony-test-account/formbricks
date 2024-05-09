@@ -101,7 +101,7 @@ const SummaryPage = ({
   }, [searchParams, resetState]);
 
   return (
-    <ContentWrapper>
+    <ContentWrapper className="pt-12 pb-6">
       <SummaryHeader
         environment={environment}
         survey={survey}
