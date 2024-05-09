@@ -101,7 +101,7 @@ const SummaryPage = ({
   }, [searchParams, resetState]);
 
   return (
-    <ContentWrapper>
+    <ContentWrapper className="px-6 py-12" >
       <SummaryHeader
         environment={environment}
         survey={survey}
@@ -113,7 +113,7 @@ const SummaryPage = ({
       />
       <CustomFilter environmentTags={environmentTags} attributes={attributes} survey={survey} />
       <SurveyResultsTabs
-        activeId="summary"
+className="text-[#0045C4FF]"         activeId="summary"
         environmentId={environment.id}
         surveyId={surveyId}
         responseCount={responseCount}
