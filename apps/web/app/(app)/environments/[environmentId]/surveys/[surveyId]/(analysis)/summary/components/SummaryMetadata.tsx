@@ -38,20 +38,20 @@ export default function SummaryMetadata({ surveySummary }: SummaryMetadataProps)
     surveySummary;
 
   return (
-    <div className="flex flex-col-reverse gap-y-2 py-4 lg:flex-row lg:gap-x-2">
-      <StatCard
+    <div className="flex flex-col-reverse gap-y-2 py-4 lg:flex-row lg:gap-px justify-end pr-0 pt-0 pb-8">
+      <StatCard className="my-0"
         label="Displays"
         percentage="100%"
         value={displayCount === 0 ? <span>-</span> : displayCount}
         tooltipText="Number of times the survey has been viewed."
       />
-      <StatCard
+      <StatCard className="ml-px my-0"
         label="Starts"
         percentage={`${Math.round(startsPercentage)}%`}
         value={totalResponses === 0 ? <span>-</span> : totalResponses}
         tooltipText="Number of times the survey has been started."
       />
-      <StatCard
+      <StatCard className="ml-0 mb-0"
         label="Responses"
         percentage={`${Math.round(completedPercentage)}%`}
         value={completedResponses === 0 ? <span>-</span> : completedResponses}

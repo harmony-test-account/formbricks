@@ -39,7 +39,7 @@ const SummaryHeader = ({
     <div className="mb-6 mt-6 flex items-center justify-between">
       <div>
         <div className="flex gap-4">
-          <p className="text-3xl font-bold text-slate-800">{survey.name}</p>
+          <p className="font-bold text-slate-800 text-[35px]">{survey.name}</p>
           {survey.resultShareKey && <Badge text="Results are public" type="warning" size="normal"></Badge>}
         </div>
         <span className="text-base font-extralight text-slate-600">{product.name}</span>
