@@ -15,10 +15,10 @@ export default function CTASummary({ questionSummary }: CTASummaryProps) {
   const questionTypeInfo = questionTypes.find((type) => type.id === questionSummary.question.type);
 
   return (
-    <div className=" rounded-lg border border-slate-200 bg-white px-4 py-6 shadow-sm">
+    <div className="rounded-lg border border-slate-200 bg-white px-4 py-6 shadow-sm 2xl:pl-[7px]">
       <Headline headline={getLocalizedValue(questionSummary.question.headline, "default")} />
 
-      <div className="mt-2 flex space-x-2 text-xs font-semibold text-slate-600 md:text-sm">
+      <div className="flex space-x-2 text-xs font-semibold text-slate-600 md:text-sm ml-[9px] mt-2">
         <div className=" flex items-center rounded-lg p-2 ">
           {questionTypeInfo && <questionTypeInfo.icon className="mr-2 h-4 w-4 " />}
           <span>{questionTypeInfo ? questionTypeInfo.label : "Unknown Question Type"}</span>
@@ -31,7 +31,7 @@ export default function CTASummary({ questionSummary }: CTASummaryProps) {
           <div className="flex items-center  rounded-lg p-2">Optional</div>
         )}
       </div>
-      <div className="text mb-5 mt-4 flex justify-between px-2 pb-2">
+      <div className="text mt-4 flex justify-between px-2 pb-2 ml-[9px] mb-5">
         <div className="mr-8 flex space-x-1">
           <p className="font-semibold text-slate-700">
             Clickthrough Rate (CTR) {convertFloatToNDecimal(questionSummary.ctr.percentage, 1)}%

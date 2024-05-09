@@ -36,10 +36,10 @@ const SummaryHeader = ({
   const [showShareSurveyModal, setShowShareSurveyModal] = useState(false);
 
   return (
-    <div className="mb-6 mt-6 flex items-center justify-between">
+    <div className="flex items-center justify-end gap-[842px] ml-0 my-0">
       <div>
         <div className="flex gap-4">
-          <p className="text-3xl font-bold text-slate-800">{survey.name}</p>
+          <p className="font-bold text-slate-800 text-[31px]">{survey.name}</p>
           {survey.resultShareKey && <Badge text="Results are public" type="warning" size="normal"></Badge>}
         </div>
         <span className="text-base font-extralight text-slate-600">{product.name}</span>
@@ -56,12 +56,10 @@ const SummaryHeader = ({
       {!isViewer && (
         <Button
           variant="darkCTA"
-          className="h-full w-full px-3 lg:px-6"
+          className="px-3 lg:px-6 bg-[#E33AE9FF] h-auto w-auto"
           href="#"
           /*href={`/environments/${environment.id}/surveys/${surveyId}/edit`}*/
-        >
-          Edit
-          <SquarePenIcon className="ml-1 h-4" />
+        >Help me<SquarePenIcon className="ml-1 h-4" />
         </Button>
       )}
       <SuccessMessage environment={environment} survey={survey} webAppUrl={webAppUrl} user={user} />
