@@ -19,7 +19,7 @@ const StatCard: React.FunctionComponent<{
   className?: string;
 }> = ({ label, percentage, value, className }) => (
   <div
-    className={cn(
+className="bg-[#D7B2B2FF]"     className={cn(
       "flex cursor-default flex-col items-start justify-between space-y-2 rounded-lg border border-slate-200 bg-white p-4 text-left shadow-sm",
       className
     )}>
@@ -38,7 +38,7 @@ export default function SummaryMetadata({ surveySummary }: SummaryMetadataProps)
     surveySummary;
 
   return (
-    <div className="flex flex-col-reverse gap-y-2 py-4 lg:flex-row lg:gap-x-2">
+    <div className="ml-0" className="flex flex-col-reverse gap-y-2 py-4 lg:flex-row lg:gap-x-2">
       <StatCard
         label="Displays"
         percentage="100%"

@@ -100,7 +100,7 @@ const DropdownMenuTrigger = React.forwardRef<DropdownMenuTriggerElement, Dropdow
     const menuScope = useMenuScope(__scopeDropdownMenu);
     return (
       <MenuPrimitive.Anchor asChild {...menuScope}>
-        <Primitive.button
+        <Primitive className="gap-2 items-end ml-0 mb-2.5 pl-6 pr-[124px] p<Primitive className="gap-2 items-start ml-[22px] mt-1 pl-6 pr-[52px] pb-0" .button
           type="button"
           id={context.triggerId}
           aria-haspopup="menu"
