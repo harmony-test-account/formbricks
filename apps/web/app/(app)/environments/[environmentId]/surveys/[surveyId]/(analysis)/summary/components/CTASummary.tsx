@@ -16,15 +16,15 @@ export default function CTASummary({ questionSummary }: CTASummaryProps) {
 
   return (
     <div className=" rounded-lg border border-slate-200 bg-white px-4 py-6 shadow-sm">
-      <Headline headline={getLocalizedValue(questionSummary.question.headline, "default")} />
+      <Headline headline={getLocalizedValue( /** Change inner text for span tag from Action  🎉 to Action Completed 🎉 */, "default")} />
 
       <div className="mt-2 flex space-x-2 text-xs font-semibold text-slate-600 md:text-sm">
         <div className=" flex items-center rounded-lg p-2 ">
-          {questionTypeInfo && <questionTypeInfo.icon className="mr-2 h-4 w-4 " />}
+          {questionTypeInfo && <questionTypeInfo.icon className="mr-2 w-5 h-5" />}
           <span>{questionTypeInfo ? questionTypeInfo.label : "Unknown Question Type"}</span>
         </div>
         <div className=" flex items-center rounded-lg p-2">
-          <InboxIcon className="mr-2 h-4 w-4 " />
+          <InboxIcon className="mr-2 w-5 h-5" />
           <span>{questionSummary.responseCount} responses</span>
         </div>
         {!questionSummary.question.required && (
