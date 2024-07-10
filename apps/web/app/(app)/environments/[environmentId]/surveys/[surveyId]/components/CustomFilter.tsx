@@ -204,7 +204,7 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
 
   return (
     <>
-      <div className="relative mb-6 flex gap-x-1.5 py-5">
+      <div className="relative mb-6 flex py-5 gap-1.5">
         <ResponseFilter />
         <DropdownMenu
           onOpenChange={(value) => {
@@ -266,7 +266,7 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
             value && handleDatePickerClose();
             setIsDownloadDropDownOpen(value);
           }}>
-          <DropdownMenuTrigger className="flex h-auto items-center justify-between rounded-md border border-slate-200 bg-white p-3 hover:border-slate-300 sm:px-6 sm:py-3">
+          <DropdownMenuTrigger className="flex h-auto items-center justify-between rounded-md border border-slate-200 bg-white p-3 hover:border-slate-300 sm:px-6 sm:py-3 ml-1.5">
             <span className="text-sm text-slate-700">Download</span>
             {isDownloadDropDownOpen ? (
               <ChevronUp className="ml-2 h-4 w-4 opacity-50" />
