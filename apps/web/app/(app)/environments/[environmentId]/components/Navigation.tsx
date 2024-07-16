@@ -210,7 +210,7 @@ export default function Navigation({
           )}
 
           <div className="w-full px-4 sm:px-6">
-            <div className="flex h-14 justify-between">
+            <div className="flex h-14 justify-between gap-[1275px]">
               <div className="flex space-x-4 py-2">
                 <Image src={FaveIcon} alt="faveicon" />
 
@@ -271,7 +271,7 @@ export default function Navigation({
               {/* User Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild id="userDropdownTrigger">
-                  <div tabIndex={0} className="flex cursor-pointer flex-row items-center space-x-5">
+                  <div tabIndex={0} className="flex cursor-pointer flex-row space-x-5 items-start gap-[17px] justify-end mb-0 pl-[3px] pt-2">
                     <svg
                       viewBox="0 0 80 80"
                       fill="none"
@@ -303,13 +303,13 @@ export default function Navigation({
                       </g>
                     </svg>
 
-                    <div>
+                    <div className="ml-0 mt-px">
                       <p className="ph-no-capture ph-no-capture -mb-0.5 text-sm font-bold text-slate-700">
                         {truncate(product!.name, 30)}
                       </p>
                       <p className="text-sm text-slate-500">{capitalizeFirstLetter(team?.name)}</p>
                     </div>
-                    <ChevronDownIcon className="h-5 w-5 text-slate-700 hover:text-slate-500" />
+                    <ChevronDownIcon className="h-5 w-5 text-slate-700 hover:text-slate-500 ml-[3px] mt-2.5" />
                   </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56" id="userDropdownContentWrapper">
