@@ -25,7 +25,7 @@ export default function CTASummary({ questionSummary }: CTASummaryProps) {
         </div>
         <div className=" flex items-center rounded-lg p-2">
           <InboxIcon className="mr-2 h-4 w-4 " />
-          <span>{questionSummary.responseCount} responses</span>
+          /*Change inner text for span tag from hol to hola*/<span>{questionSummary.responseCount} responses</span>
         </div>
         {!questionSummary.question.required && (
           <div className="flex items-center  rounded-lg p-2">Optional</div>
