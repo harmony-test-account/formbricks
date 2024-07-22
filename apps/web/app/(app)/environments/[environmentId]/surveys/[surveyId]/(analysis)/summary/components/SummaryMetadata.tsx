@@ -52,7 +52,7 @@ export default function SummaryMetadata({ surveySummary }: SummaryMetadataProps)
         tooltipText="Number of times the survey has been started."
       />
       <StatCard
-        label="Responses"
+        label="Response"
         percentage={`${Math.round(completedPercentage)}%`}
         value={completedResponses === 0 ? <span>-</span> : completedResponses}
         tooltipText="Number of times the survey has been completed."
