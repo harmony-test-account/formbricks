@@ -14,7 +14,6 @@ import { differenceInDays, format, startOfDay, subDays } from "date-fns";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
-
 import { useClickOutside } from "@formbricks/lib/utils/hooks/useClickOutside";
 import { TSurveyPersonAttributes } from "@formbricks/types/responses";
 import { TSurvey } from "@formbricks/types/surveys";
@@ -26,32 +25,26 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@formbricks/ui/DropdownMenu";
-
 import ResponseFilter from "./ResponseFilter";
-
 enum DateSelected {
   FROM = "from",
   TO = "to",
 }
-
 enum FilterDownload {
   ALL = "all",
   FILTER = "filter",
 }
-
 enum FilterDropDownLabels {
   ALL_TIME = "All time",
   LAST_7_DAYS = "Last 7 days",
   LAST_30_DAYS = "Last 30 days",
   CUSTOM_RANGE = "Custom range...",
 }
-
 interface CustomFilterProps {
   environmentTags: TTag[];
   attributes: TSurveyPersonAttributes;
   survey: TSurvey;
 }
-
 const getDifferenceOfDays = (from, to) => {
   const days = differenceInDays(to, from);
   if (days === 7) {
@@ -62,7 +55,6 @@ const getDifferenceOfDays = (from, to) => {
     return FilterDropDownLabels.CUSTOM_RANGE;
   }
 };
-
 const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps) => {
   const { selectedFilter, setSelectedOptions, dateRange, setDateRange, resetState } = useResponseFilter();
   const [filterRange, setFilterRange] = useState<FilterDropDownLabels>(
@@ -75,16 +67,13 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
   const [isFilterDropDownOpen, setIsFilterDropDownOpen] = useState<boolean>(false);
   const [isDownloadDropDownOpen, setIsDownloadDropDownOpen] = useState<boolean>(false);
   const [hoveredRange, setHoveredRange] = useState<DateRange | null>(null);
-
   const firstMountRef = useRef(true);
-
   useEffect(() => {
     if (!firstMountRef.current) {
       firstMountRef.current = false;
       return;
     }
   }, []);
-
   useEffect(() => {
     if (!firstMountRef.current) {
       resetState();
@@ -98,19 +87,18 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
       environmentTags,
       attributes
     );
-    setSelectedOptions({ questionFilterOptions, questionOptions });
+    setSelectedOptions({
+      questionFilterOptions,
+      questionOptions,
+    });
   }, [survey, setSelectedOptions, environmentTags, attributes]);
-
   const filters = useMemo(
     () => getFormattedFilters(survey, selectedFilter, dateRange),
     [survey, selectedFilter, dateRange]
   );
-
   const datePickerRef = useRef<HTMLDivElement>(null);
-
   const extracMetadataKeys = useCallback((obj, parentKey = "") => {
     let keys: string[] = [];
-
     for (let key in obj) {
       if (typeof obj[key] === "object" && obj[key] !== null) {
         keys = keys.concat(extracMetadataKeys(obj[key], parentKey + key + " - "));
@@ -118,10 +106,8 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
         keys.push(parentKey + key);
       }
     }
-
     return keys;
   }, []);
-
   const handleDateHoveredChange = (date: Date) => {
     if (selectingDate === DateSelected.FROM) {
       const startOfRange = new Date(date);
@@ -131,7 +117,10 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
       if (startOfRange > dateRange?.to!) {
         return;
       } else {
-        setHoveredRange({ from: startOfRange, to: dateRange.to });
+        setHoveredRange({
+          from: startOfRange,
+          to: dateRange.to,
+        });
       }
     } else {
       const endOfRange = new Date(date);
@@ -141,11 +130,13 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
       if (endOfRange < dateRange?.from!) {
         return;
       } else {
-        setHoveredRange({ from: dateRange.from, to: endOfRange });
+        setHoveredRange({
+          from: dateRange.from,
+          to: endOfRange,
+        });
       }
     }
   };
-
   const handleDateChange = (date: Date) => {
     if (selectingDate === DateSelected.FROM) {
       const startOfRange = new Date(date);
@@ -156,9 +147,15 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
         const nextDay = new Date(startOfRange);
         nextDay.setDate(nextDay.getDate() + 1);
         nextDay.setHours(23, 59, 59, 999);
-        setDateRange({ from: startOfRange, to: nextDay });
+        setDateRange({
+          from: startOfRange,
+          to: nextDay,
+        });
       } else {
-        setDateRange((prevData) => ({ from: startOfRange, to: prevData.to }));
+        setDateRange((prevData) => ({
+          from: startOfRange,
+          to: prevData.to,
+        }));
       }
       setSelectingDate(DateSelected.TO);
     } else {
@@ -170,20 +167,24 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
         const previousDay = new Date(endOfRange);
         previousDay.setDate(previousDay.getDate() - 1);
         previousDay.setHours(0, 0, 0, 0); // Set to the start of the selected day
-        setDateRange({ from: previousDay, to: endOfRange });
+        setDateRange({
+          from: previousDay,
+          to: endOfRange,
+        });
       } else {
-        setDateRange((prevData) => ({ from: prevData?.from, to: endOfRange }));
+        setDateRange((prevData) => ({
+          from: prevData?.from,
+          to: endOfRange,
+        }));
       }
       setIsDatePickerOpen(false);
       setSelectingDate(DateSelected.FROM);
     }
   };
-
   const handleDatePickerClose = () => {
     setIsDatePickerOpen(false);
     setSelectingDate(DateSelected.FROM);
   };
-
   const handleDowndloadResponses = async (filter: FilterDownload, filetype: "csv" | "xlsx") => {
     try {
       const responseFilters = filter === FilterDownload.ALL ? {} : filters;
@@ -199,12 +200,10 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
       toast.error("Error downloading responses");
     }
   };
-
   useClickOutside(datePickerRef, () => handleDatePickerClose());
-
   return (
     <>
-      <div className="relative mb-6 flex gap-x-1.5 py-5">
+      <div className="relative mb-6 flex py-5 gap-4">
         <ResponseFilter />
         <DropdownMenu
           onOpenChange={(value) => {
@@ -214,9 +213,7 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
           <DropdownMenuTrigger className="flex h-auto items-center justify-between rounded-md border border-slate-200 bg-white p-3 hover:border-slate-300 sm:px-6 sm:py-3">
             <span className="text-sm text-slate-700">
               {filterRange === FilterDropDownLabels.CUSTOM_RANGE
-                ? `${dateRange?.from ? format(dateRange?.from, "dd LLL") : "Select first date"} - ${
-                    dateRange?.to ? format(dateRange.to, "dd LLL") : "Select last date"
-                  }`
+                ? `${dateRange?.from ? format(dateRange?.from, "dd LLL") : "Select first date"} - ${dateRange?.to ? format(dateRange.to, "dd LLL") : "Select last date"}`
                 : filterRange}
             </span>
             {isFilterDropDownOpen ? (
@@ -230,7 +227,10 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
               className="hover:ring-0"
               onClick={() => {
                 setFilterRange(FilterDropDownLabels.ALL_TIME);
-                setDateRange({ from: undefined, to: getTodayDate() });
+                setDateRange({
+                  from: undefined,
+                  to: getTodayDate(),
+                });
               }}>
               <p className="text-slate-700">All time</p>
             </DropdownMenuItem>
@@ -238,7 +238,10 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
               className="hover:ring-0"
               onClick={() => {
                 setFilterRange(FilterDropDownLabels.LAST_7_DAYS);
-                setDateRange({ from: startOfDay(subDays(new Date(), 7)), to: getTodayDate() });
+                setDateRange({
+                  from: startOfDay(subDays(new Date(), 7)),
+                  to: getTodayDate(),
+                });
               }}>
               <p className="text-slate-700">Last 7 days</p>
             </DropdownMenuItem>
@@ -246,7 +249,10 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
               className="hover:ring-0"
               onClick={() => {
                 setFilterRange(FilterDropDownLabels.LAST_30_DAYS);
-                setDateRange({ from: startOfDay(subDays(new Date(), 30)), to: getTodayDate() });
+                setDateRange({
+                  from: startOfDay(subDays(new Date(), 30)),
+                  to: getTodayDate(),
+                });
               }}>
               <p className="text-slate-700">Last 30 days</p>
             </DropdownMenuItem>
@@ -267,7 +273,7 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
             setIsDownloadDropDownOpen(value);
           }}>
           <DropdownMenuTrigger className="flex h-auto items-center justify-between rounded-md border border-slate-200 bg-white p-3 hover:border-slate-300 sm:px-6 sm:py-3">
-            <span className="text-sm text-slate-700">Download</span>
+            <span className="text-sm text-slate-700">Upload</span>
             {isDownloadDropDownOpen ? (
               <ChevronUp className="ml-2 h-4 w-4 opacity-50" />
             ) : (
@@ -326,5 +332,4 @@ const CustomFilter = ({ environmentTags, attributes, survey }: CustomFilterProps
     </>
   );
 };
-
 export default CustomFilter;

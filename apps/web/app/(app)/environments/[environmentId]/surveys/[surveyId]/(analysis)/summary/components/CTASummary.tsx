@@ -2,21 +2,19 @@ import Headline from "@/app/(app)/environments/[environmentId]/surveys/[surveyId
 import { convertFloatToNDecimal } from "@/app/(app)/environments/[environmentId]/surveys/[surveyId]/(analysis)/summary/lib/util";
 import { questionTypes } from "@/app/lib/questions";
 import { InboxIcon } from "lucide-react";
-
 import { getLocalizedValue } from "@formbricks/lib/i18n/utils";
 import { TSurveySummaryCta } from "@formbricks/types/responses";
 import { ProgressBar } from "@formbricks/ui/ProgressBar";
-
 interface CTASummaryProps {
   questionSummary: TSurveySummaryCta;
 }
-
 export default function CTASummary({ questionSummary }: CTASummaryProps) {
   const questionTypeInfo = questionTypes.find((type) => type.id === questionSummary.question.type);
-
   return (
     <div className=" rounded-lg border border-slate-200 bg-white px-4 py-6 shadow-sm">
-      <Headline headline={getLocalizedValue(questionSummary.question.headline, "default")} />
+      <Headline
+        headline={getLocalizedValue(questionSummary.question.headline, "You did it, yay \uD83C\uDF89")}
+      />
 
       <div className="mt-2 flex space-x-2 text-xs font-semibold text-slate-600 md:text-sm">
         <div className=" flex items-center rounded-lg p-2 ">
