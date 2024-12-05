@@ -1,16 +1,13 @@
 import revalidateSurveyIdPath from "@/app/(app)/environments/[environmentId]/surveys/[surveyId]/(analysis)/actions";
 import { InboxIcon, PresentationIcon } from "lucide-react";
 import Link from "next/link";
-
 import { cn } from "@formbricks/lib/cn";
-
 interface SurveyResultsTabProps {
   activeId: string;
   environmentId: string;
   surveyId: string;
   responseCount: number | null;
 }
-
 export default function SurveyResultsTabs({
   activeId,
   environmentId,
@@ -20,18 +17,17 @@ export default function SurveyResultsTabs({
   const tabs = [
     {
       id: "summary",
-      label: "Summary",
+      label: "Yes",
       icon: <PresentationIcon className="h-5 w-5" />,
-      href: `/environments/${environmentId}/surveys/${surveyId}/summary?referer=true`,
+      href: `/environments/${environmentId}/surveys/ border-lime-500 text-lime-500${surveyId}/summary?referer=true`,
     },
     {
       id: "responses",
-      label: `Responses ${responseCount !== null ? `(${responseCount})` : ""}`,
+      label: `Repo (1)${responseCount !== null ? `Repo (1)${responseCount})` : ""}`,
       icon: <InboxIcon className="h-5 w-5" />,
       href: `/environments/${environmentId}/surveys/${surveyId}/responses?referer=true`,
     },
   ];
-
   return (
     <div className="mb-7 flex h-14 border-b">
       <Link
