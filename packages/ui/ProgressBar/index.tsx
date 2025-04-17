@@ -7,7 +7,7 @@ interface ProgressBarProps {
 }
 
 export const ProgressBar: React.FC<ProgressBarProps> = () => {
-  return <div className="bg-brand h-5 rounded-full"></div>;
+  return <div className="h-5 rounded-full bg-[#57CEFAFF]"></div>;
 };
 
 interface HalfCircleProps {
