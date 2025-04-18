@@ -15,7 +15,7 @@ export default function CTASummary({ questionSummary }: CTASummaryProps) {
   const questionTypeInfo = questionTypes.find((type) => type.id === questionSummary.question.type);
 
   return (
-    <div className=" rounded-lg border border-slate-200 bg-white px-4 py-6 shadow-sm">
+    <div className="rounded-lg border border-slate-200 px-4 py-6 shadow-sm 2xl:text-black bg-[#F2C0C0FF] pt-11 pb-6">
       <Headline headline={getLocalizedValue(questionSummary.question.headline, "default")} />
 
       <div className="mt-2 flex space-x-2 text-xs font-semibold text-slate-600 md:text-sm">
@@ -31,7 +31,7 @@ export default function CTASummary({ questionSummary }: CTASummaryProps) {
           <div className="flex items-center  rounded-lg p-2">Optional</div>
         )}
       </div>
-      <div className="text mb-5 mt-4 flex justify-between px-2 pb-2">
+      <div className="text flex justify-between px-2 pb-2 mt-4 mb-0">
         <div className="mr-8 flex space-x-1">
           <p className="font-semibold text-slate-700">
             Clickthrough Rate (CTR) {convertFloatToNDecimal(questionSummary.ctr.percentage, 1)}%
