@@ -40,7 +40,7 @@
     "encoding": "^0.1.13",
     "framer-motion": "11.0.12",
     "googleapis": "^134.0.0",
-    "harmony-ai-editor": "^0.12.5",
+    "harmony-ai-editor": "^0.13.3",
     "harmony-ai-plugin": "^0.2.1",
     "jiti": "^1.21.0",
     "jsonwebtoken": "^9.0.2",
