@@ -93,9 +93,9 @@ export class ResponseQueue {
         }
         if (this.surveyState.displayId) {
           try {
-            await this.api.client.display.update(this.surveyState.displayId, {
-              responseId: response.data.id,
-            });
+            // await this.api.client.display.update(this.surveyState.displayId, {
+            //   responseId: response.data.id,
+            // });
           } catch (error) {
             console.error(`Failed to update display, proceeding with the response. ${error}`);
           }
